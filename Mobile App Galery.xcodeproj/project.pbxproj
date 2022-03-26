@@ -7,9 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BE40184827EF2F6D00F2E1DD /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE40184727EF2F6D00F2E1DD /* NetworkService.swift */; };
+		BE40184A27EF2F7F00F2E1DD /* RequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE40184927EF2F7F00F2E1DD /* RequestBuilder.swift */; };
+		BE40184E27EF307900F2E1DD /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE40184D27EF307900F2E1DD /* Constants.swift */; };
+		BE5B086527EF4425000DCE48 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5B086327EF4425000DCE48 /* AuthViewController.swift */; };
+		BE5B086627EF4425000DCE48 /* AuthViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE5B086427EF4425000DCE48 /* AuthViewController.xib */; };
+		BE5B086B27EF45CB000DCE48 /* AuthPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5B086A27EF45CB000DCE48 /* AuthPresenter.swift */; };
+		BE5B086D27EF45D7000DCE48 /* AuthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5B086C27EF45D7000DCE48 /* AuthModel.swift */; };
+		BE5B086F27EF45E3000DCE48 /* AuthConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5B086E27EF45E3000DCE48 /* AuthConfigurator.swift */; };
+		BE5B087127EF4C07000DCE48 /* URLExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5B087027EF4C07000DCE48 /* URLExtension.swift */; };
+		BE5B087427EF55B4000DCE48 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5B087327EF55B4000DCE48 /* Token.swift */; };
 		BEC0CD4927EE5DAD000331A0 /* WelcomePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC0CD4827EE5DAD000331A0 /* WelcomePresenter.swift */; };
 		BEC0CD4C27EE5E40000331A0 /* WelcomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC0CD4B27EE5E40000331A0 /* WelcomeModel.swift */; };
 		BEC0CD4F27EE5F15000331A0 /* WelcomeConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC0CD4E27EE5F15000331A0 /* WelcomeConfigurator.swift */; };
+		BED4A9CB27EF5A77003F847C /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED4A9CA27EF5A77003F847C /* Storage.swift */; };
+		BED4A9CD27EF96D2003F847C /* DesignatedError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED4A9CC27EF96D2003F847C /* DesignatedError.swift */; };
+		BED4A9CF27EFA2CD003F847C /* UIAlertControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED4A9CE27EFA2CD003F847C /* UIAlertControllerExtension.swift */; };
 		BED8042027EE5039007A08F6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED8041F27EE5039007A08F6 /* AppDelegate.swift */; };
 		BED8042227EE5039007A08F6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED8042127EE5039007A08F6 /* SceneDelegate.swift */; };
 		BED8042927EE503A007A08F6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BED8042827EE503A007A08F6 /* Assets.xcassets */; };
@@ -19,9 +32,22 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BE40184727EF2F6D00F2E1DD /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		BE40184927EF2F7F00F2E1DD /* RequestBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestBuilder.swift; sourceTree = "<group>"; };
+		BE40184D27EF307900F2E1DD /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		BE5B086327EF4425000DCE48 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
+		BE5B086427EF4425000DCE48 /* AuthViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AuthViewController.xib; sourceTree = "<group>"; };
+		BE5B086A27EF45CB000DCE48 /* AuthPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthPresenter.swift; sourceTree = "<group>"; };
+		BE5B086C27EF45D7000DCE48 /* AuthModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthModel.swift; sourceTree = "<group>"; };
+		BE5B086E27EF45E3000DCE48 /* AuthConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthConfigurator.swift; sourceTree = "<group>"; };
+		BE5B087027EF4C07000DCE48 /* URLExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLExtension.swift; sourceTree = "<group>"; };
+		BE5B087327EF55B4000DCE48 /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		BEC0CD4827EE5DAD000331A0 /* WelcomePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomePresenter.swift; sourceTree = "<group>"; };
 		BEC0CD4B27EE5E40000331A0 /* WelcomeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeModel.swift; sourceTree = "<group>"; };
 		BEC0CD4E27EE5F15000331A0 /* WelcomeConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeConfigurator.swift; sourceTree = "<group>"; };
+		BED4A9CA27EF5A77003F847C /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
+		BED4A9CC27EF96D2003F847C /* DesignatedError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignatedError.swift; sourceTree = "<group>"; };
+		BED4A9CE27EFA2CD003F847C /* UIAlertControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlertControllerExtension.swift; sourceTree = "<group>"; };
 		BED8041C27EE5039007A08F6 /* Mobile App Galery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mobile App Galery.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BED8041F27EE5039007A08F6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BED8042127EE5039007A08F6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -43,6 +69,77 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BE40184C27EF306300F2E1DD /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				BE5B085C27EF430F000DCE48 /* Extensions */,
+				BE40184D27EF307900F2E1DD /* Constants.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		BE5B085C27EF430F000DCE48 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				BE5B087027EF4C07000DCE48 /* URLExtension.swift */,
+				BED4A9CE27EFA2CD003F847C /* UIAlertControllerExtension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		BE5B085F27EF43DC000DCE48 /* AuthModule */ = {
+			isa = PBXGroup;
+			children = (
+				BE5B086927EF45AC000DCE48 /* AuthConfigurator */,
+				BE5B086827EF459A000DCE48 /* AuthModel */,
+				BE5B086727EF4590000DCE48 /* AuthPresenter */,
+				BE5B086227EF440F000DCE48 /* AuthViewController */,
+			);
+			path = AuthModule;
+			sourceTree = "<group>";
+		};
+		BE5B086227EF440F000DCE48 /* AuthViewController */ = {
+			isa = PBXGroup;
+			children = (
+				BE5B086327EF4425000DCE48 /* AuthViewController.swift */,
+				BE5B086427EF4425000DCE48 /* AuthViewController.xib */,
+			);
+			path = AuthViewController;
+			sourceTree = "<group>";
+		};
+		BE5B086727EF4590000DCE48 /* AuthPresenter */ = {
+			isa = PBXGroup;
+			children = (
+				BE5B086A27EF45CB000DCE48 /* AuthPresenter.swift */,
+			);
+			path = AuthPresenter;
+			sourceTree = "<group>";
+		};
+		BE5B086827EF459A000DCE48 /* AuthModel */ = {
+			isa = PBXGroup;
+			children = (
+				BE5B086C27EF45D7000DCE48 /* AuthModel.swift */,
+			);
+			path = AuthModel;
+			sourceTree = "<group>";
+		};
+		BE5B086927EF45AC000DCE48 /* AuthConfigurator */ = {
+			isa = PBXGroup;
+			children = (
+				BE5B086E27EF45E3000DCE48 /* AuthConfigurator.swift */,
+			);
+			path = AuthConfigurator;
+			sourceTree = "<group>";
+		};
+		BE5B087227EF55A1000DCE48 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				BE40184727EF2F6D00F2E1DD /* NetworkService.swift */,
+				BE40184927EF2F7F00F2E1DD /* RequestBuilder.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
 		BEC0CD4427EE5D1B000331A0 /* WelcomeViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -95,6 +192,7 @@
 		BED8041E27EE5039007A08F6 /* Mobile App Galery */ = {
 			isa = PBXGroup;
 			children = (
+				BE40184C27EF306300F2E1DD /* Helpers */,
 				BED8043627EE513F007A08F6 /* Resources */,
 				BED8043327EE5100007A08F6 /* Components */,
 				BED8043427EE5114007A08F6 /* Modules */,
@@ -116,6 +214,7 @@
 		BED8043427EE5114007A08F6 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				BE5B085F27EF43DC000DCE48 /* AuthModule */,
 				BED8043727EE5191007A08F6 /* WelcomeModule */,
 			);
 			path = Modules;
@@ -124,6 +223,10 @@
 		BED8043527EE511B007A08F6 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
+				BE5B087227EF55A1000DCE48 /* Network */,
+				BE5B087327EF55B4000DCE48 /* Token.swift */,
+				BED4A9CA27EF5A77003F847C /* Storage.swift */,
+				BED4A9CC27EF96D2003F847C /* DesignatedError.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -206,6 +309,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE5B086627EF4425000DCE48 /* AuthViewController.xib in Resources */,
 				BED8042C27EE503A007A08F6 /* LaunchScreen.storyboard in Resources */,
 				BED8042927EE503A007A08F6 /* Assets.xcassets in Resources */,
 				BED8043B27EE51B5007A08F6 /* WelcomeViewController.xib in Resources */,
@@ -220,11 +324,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				BED8043A27EE51B5007A08F6 /* WelcomeViewController.swift in Sources */,
+				BE5B087127EF4C07000DCE48 /* URLExtension.swift in Sources */,
 				BEC0CD4927EE5DAD000331A0 /* WelcomePresenter.swift in Sources */,
+				BED4A9CD27EF96D2003F847C /* DesignatedError.swift in Sources */,
+				BE5B086527EF4425000DCE48 /* AuthViewController.swift in Sources */,
 				BED8042027EE5039007A08F6 /* AppDelegate.swift in Sources */,
 				BEC0CD4F27EE5F15000331A0 /* WelcomeConfigurator.swift in Sources */,
+				BE5B087427EF55B4000DCE48 /* Token.swift in Sources */,
+				BE5B086D27EF45D7000DCE48 /* AuthModel.swift in Sources */,
+				BE5B086B27EF45CB000DCE48 /* AuthPresenter.swift in Sources */,
 				BED8042227EE5039007A08F6 /* SceneDelegate.swift in Sources */,
 				BEC0CD4C27EE5E40000331A0 /* WelcomeModel.swift in Sources */,
+				BE40184827EF2F6D00F2E1DD /* NetworkService.swift in Sources */,
+				BE40184A27EF2F7F00F2E1DD /* RequestBuilder.swift in Sources */,
+				BED4A9CF27EFA2CD003F847C /* UIAlertControllerExtension.swift in Sources */,
+				BED4A9CB27EF5A77003F847C /* Storage.swift in Sources */,
+				BE40184E27EF307900F2E1DD /* Constants.swift in Sources */,
+				BE5B086F27EF45E3000DCE48 /* AuthConfigurator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -13,6 +13,8 @@ extension UIAlertController {
         case failedDecodeData
         case error(_ error: Error)
         case specialError(_ error: DesignatedError)
+        case accessFailed
+        case parsImageError
     }
 
     convenience init(config: Configuration) {
@@ -29,6 +31,12 @@ extension UIAlertController {
         case .specialError(let error):
             self.init(title: nil, message: nil, preferredStyle: .alert)
             setupSpecialErrorAlert(error: error)
+        case .accessFailed:
+            self.init(title: nil, message: nil, preferredStyle: .alert)
+            setupAccessFailedError()
+        case .parsImageError:
+            self.init(title: nil, message: nil, preferredStyle: .alert)
+            setupParsImageError()
         }
     }
 
@@ -56,6 +64,20 @@ extension UIAlertController {
     private func setupSpecialErrorAlert(error: DesignatedError) {
         title = error.error
         message = error.errorDescription
+        let action = UIAlertAction(title: "Ок", style: .default)
+        addAction(action)
+    }
+
+    private func setupAccessFailedError() {
+        title = "Ошибка доступу"
+        message = "Попробуйте перезайти"
+        let action = UIAlertAction(title: "Ок", style: .default)
+        addAction(action)
+    }
+
+    private func setupParsImageError() {
+        title = "Ошибка загрузки фото"
+        message = "Попробуйте снова"
         let action = UIAlertAction(title: "Ок", style: .default)
         addAction(action)
     }

@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BE0926CE27F070370061E87E /* GalleryPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0926CD27F070370061E87E /* GalleryPresenter.swift */; };
+		BE0926D027F070400061E87E /* GalleryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0926CF27F070400061E87E /* GalleryModel.swift */; };
+		BE0926D227F0704E0061E87E /* GalleryConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0926D127F0704E0061E87E /* GalleryConfigurator.swift */; };
+		BE0926D627F078B40061E87E /* GalleryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0926D427F078B40061E87E /* GalleryCollectionViewCell.swift */; };
+		BE0926D727F078B40061E87E /* GalleryCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE0926D527F078B40061E87E /* GalleryCollectionViewCell.xib */; };
+		BE0926D927F0ACDD0061E87E /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0926D827F0ACDD0061E87E /* Album.swift */; };
+		BE0926DB27F0FBBD0061E87E /* ResponseHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0926DA27F0FBBD0061E87E /* ResponseHandler.swift */; };
 		BE40184827EF2F6D00F2E1DD /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE40184727EF2F6D00F2E1DD /* NetworkService.swift */; };
 		BE40184A27EF2F7F00F2E1DD /* RequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE40184927EF2F7F00F2E1DD /* RequestBuilder.swift */; };
 		BE40184E27EF307900F2E1DD /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE40184D27EF307900F2E1DD /* Constants.swift */; };
@@ -23,6 +30,8 @@
 		BED4A9CB27EF5A77003F847C /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED4A9CA27EF5A77003F847C /* Storage.swift */; };
 		BED4A9CD27EF96D2003F847C /* DesignatedError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED4A9CC27EF96D2003F847C /* DesignatedError.swift */; };
 		BED4A9CF27EFA2CD003F847C /* UIAlertControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED4A9CE27EFA2CD003F847C /* UIAlertControllerExtension.swift */; };
+		BED4A9D727EFB189003F847C /* GalleryCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED4A9D527EFB189003F847C /* GalleryCollectionViewController.swift */; };
+		BED4A9D827EFB189003F847C /* GalleryCollectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BED4A9D627EFB189003F847C /* GalleryCollectionViewController.xib */; };
 		BED8042027EE5039007A08F6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED8041F27EE5039007A08F6 /* AppDelegate.swift */; };
 		BED8042227EE5039007A08F6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED8042127EE5039007A08F6 /* SceneDelegate.swift */; };
 		BED8042927EE503A007A08F6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BED8042827EE503A007A08F6 /* Assets.xcassets */; };
@@ -32,6 +41,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BE0926CD27F070370061E87E /* GalleryPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GalleryPresenter.swift; path = ../../../../../../../../../Downloads/GalleryPresenter.swift; sourceTree = "<group>"; };
+		BE0926CF27F070400061E87E /* GalleryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryModel.swift; sourceTree = "<group>"; };
+		BE0926D127F0704E0061E87E /* GalleryConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryConfigurator.swift; sourceTree = "<group>"; };
+		BE0926D427F078B40061E87E /* GalleryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryCollectionViewCell.swift; sourceTree = "<group>"; };
+		BE0926D527F078B40061E87E /* GalleryCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GalleryCollectionViewCell.xib; sourceTree = "<group>"; };
+		BE0926D827F0ACDD0061E87E /* Album.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
+		BE0926DA27F0FBBD0061E87E /* ResponseHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseHandler.swift; sourceTree = "<group>"; };
 		BE40184727EF2F6D00F2E1DD /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		BE40184927EF2F7F00F2E1DD /* RequestBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestBuilder.swift; sourceTree = "<group>"; };
 		BE40184D27EF307900F2E1DD /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -48,6 +64,8 @@
 		BED4A9CA27EF5A77003F847C /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		BED4A9CC27EF96D2003F847C /* DesignatedError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignatedError.swift; sourceTree = "<group>"; };
 		BED4A9CE27EFA2CD003F847C /* UIAlertControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlertControllerExtension.swift; sourceTree = "<group>"; };
+		BED4A9D527EFB189003F847C /* GalleryCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryCollectionViewController.swift; sourceTree = "<group>"; };
+		BED4A9D627EFB189003F847C /* GalleryCollectionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GalleryCollectionViewController.xib; sourceTree = "<group>"; };
 		BED8041C27EE5039007A08F6 /* Mobile App Galery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mobile App Galery.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BED8041F27EE5039007A08F6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BED8042127EE5039007A08F6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -69,6 +87,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BE0926D327F078980061E87E /* GalleryCollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				BE0926D427F078B40061E87E /* GalleryCollectionViewCell.swift */,
+				BE0926D527F078B40061E87E /* GalleryCollectionViewCell.xib */,
+			);
+			path = GalleryCollectionViewCell;
+			sourceTree = "<group>";
+		};
 		BE40184C27EF306300F2E1DD /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -136,6 +163,7 @@
 			children = (
 				BE40184727EF2F6D00F2E1DD /* NetworkService.swift */,
 				BE40184927EF2F7F00F2E1DD /* RequestBuilder.swift */,
+				BE0926DA27F0FBBD0061E87E /* ResponseHandler.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -171,6 +199,50 @@
 				BEC0CD4E27EE5F15000331A0 /* WelcomeConfigurator.swift */,
 			);
 			path = WelcomeConfigurator;
+			sourceTree = "<group>";
+		};
+		BED4A9D027EFB0D2003F847C /* GalleryModule */ = {
+			isa = PBXGroup;
+			children = (
+				BED4A9D427EFB15D003F847C /* GalleryConfigurator */,
+				BED4A9D327EFB152003F847C /* GalleryModel */,
+				BED4A9D227EFB127003F847C /* GalleryPresenter */,
+				BED4A9D127EFB111003F847C /* GalleryCollectionViewController */,
+			);
+			path = GalleryModule;
+			sourceTree = "<group>";
+		};
+		BED4A9D127EFB111003F847C /* GalleryCollectionViewController */ = {
+			isa = PBXGroup;
+			children = (
+				BED4A9D527EFB189003F847C /* GalleryCollectionViewController.swift */,
+				BED4A9D627EFB189003F847C /* GalleryCollectionViewController.xib */,
+			);
+			path = GalleryCollectionViewController;
+			sourceTree = "<group>";
+		};
+		BED4A9D227EFB127003F847C /* GalleryPresenter */ = {
+			isa = PBXGroup;
+			children = (
+				BE0926CD27F070370061E87E /* GalleryPresenter.swift */,
+			);
+			path = GalleryPresenter;
+			sourceTree = "<group>";
+		};
+		BED4A9D327EFB152003F847C /* GalleryModel */ = {
+			isa = PBXGroup;
+			children = (
+				BE0926CF27F070400061E87E /* GalleryModel.swift */,
+			);
+			path = GalleryModel;
+			sourceTree = "<group>";
+		};
+		BED4A9D427EFB15D003F847C /* GalleryConfigurator */ = {
+			isa = PBXGroup;
+			children = (
+				BE0926D127F0704E0061E87E /* GalleryConfigurator.swift */,
+			);
+			path = GalleryConfigurator;
 			sourceTree = "<group>";
 		};
 		BED8041327EE5039007A08F6 = {
@@ -214,6 +286,7 @@
 		BED8043427EE5114007A08F6 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				BED4A9D027EFB0D2003F847C /* GalleryModule */,
 				BE5B085F27EF43DC000DCE48 /* AuthModule */,
 				BED8043727EE5191007A08F6 /* WelcomeModule */,
 			);
@@ -223,10 +296,12 @@
 		BED8043527EE511B007A08F6 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
+				BE0926D327F078980061E87E /* GalleryCollectionViewCell */,
 				BE5B087227EF55A1000DCE48 /* Network */,
 				BE5B087327EF55B4000DCE48 /* Token.swift */,
 				BED4A9CA27EF5A77003F847C /* Storage.swift */,
 				BED4A9CC27EF96D2003F847C /* DesignatedError.swift */,
+				BE0926D827F0ACDD0061E87E /* Album.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -310,9 +385,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				BE5B086627EF4425000DCE48 /* AuthViewController.xib in Resources */,
+				BE0926D727F078B40061E87E /* GalleryCollectionViewCell.xib in Resources */,
 				BED8042C27EE503A007A08F6 /* LaunchScreen.storyboard in Resources */,
 				BED8042927EE503A007A08F6 /* Assets.xcassets in Resources */,
 				BED8043B27EE51B5007A08F6 /* WelcomeViewController.xib in Resources */,
+				BED4A9D827EFB189003F847C /* GalleryCollectionViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -326,21 +403,28 @@
 				BED8043A27EE51B5007A08F6 /* WelcomeViewController.swift in Sources */,
 				BE5B087127EF4C07000DCE48 /* URLExtension.swift in Sources */,
 				BEC0CD4927EE5DAD000331A0 /* WelcomePresenter.swift in Sources */,
+				BE0926DB27F0FBBD0061E87E /* ResponseHandler.swift in Sources */,
 				BED4A9CD27EF96D2003F847C /* DesignatedError.swift in Sources */,
+				BE0926D627F078B40061E87E /* GalleryCollectionViewCell.swift in Sources */,
 				BE5B086527EF4425000DCE48 /* AuthViewController.swift in Sources */,
 				BED8042027EE5039007A08F6 /* AppDelegate.swift in Sources */,
+				BE0926CE27F070370061E87E /* GalleryPresenter.swift in Sources */,
+				BE0926D027F070400061E87E /* GalleryModel.swift in Sources */,
 				BEC0CD4F27EE5F15000331A0 /* WelcomeConfigurator.swift in Sources */,
 				BE5B087427EF55B4000DCE48 /* Token.swift in Sources */,
 				BE5B086D27EF45D7000DCE48 /* AuthModel.swift in Sources */,
 				BE5B086B27EF45CB000DCE48 /* AuthPresenter.swift in Sources */,
+				BE0926D227F0704E0061E87E /* GalleryConfigurator.swift in Sources */,
 				BED8042227EE5039007A08F6 /* SceneDelegate.swift in Sources */,
 				BEC0CD4C27EE5E40000331A0 /* WelcomeModel.swift in Sources */,
 				BE40184827EF2F6D00F2E1DD /* NetworkService.swift in Sources */,
 				BE40184A27EF2F7F00F2E1DD /* RequestBuilder.swift in Sources */,
+				BED4A9D727EFB189003F847C /* GalleryCollectionViewController.swift in Sources */,
 				BED4A9CF27EFA2CD003F847C /* UIAlertControllerExtension.swift in Sources */,
 				BED4A9CB27EF5A77003F847C /* Storage.swift in Sources */,
 				BE40184E27EF307900F2E1DD /* Constants.swift in Sources */,
 				BE5B086F27EF45E3000DCE48 /* AuthConfigurator.swift in Sources */,
+				BE0926D927F0ACDD0061E87E /* Album.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

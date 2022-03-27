@@ -27,8 +27,7 @@ class WelcomeModel: WelcomeModelProtocol {
     }
 
     func generateGalleryViewController() {
-        let vc = UIViewController()
-        vc.view.backgroundColor = .red
+        let vc = GalleryCollectionViewController(nibName: "GalleryCollectionViewController", bundle: nil)
         presenter.showGalleryViewController(vc)
     }
 }

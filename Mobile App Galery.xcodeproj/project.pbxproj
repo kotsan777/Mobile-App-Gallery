@@ -14,6 +14,8 @@
 		BE0926D727F078B40061E87E /* GalleryCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE0926D527F078B40061E87E /* GalleryCollectionViewCell.xib */; };
 		BE0926D927F0ACDD0061E87E /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0926D827F0ACDD0061E87E /* Album.swift */; };
 		BE0926DB27F0FBBD0061E87E /* ResponseHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0926DA27F0FBBD0061E87E /* ResponseHandler.swift */; };
+		BE0926DD27F200380061E87E /* UIBarButtonItemExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0926DC27F200380061E87E /* UIBarButtonItemExtension.swift */; };
+		BE0926DF27F2019F0061E87E /* NavigationControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0926DE27F2019F0061E87E /* NavigationControllerExtension.swift */; };
 		BE40184827EF2F6D00F2E1DD /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE40184727EF2F6D00F2E1DD /* NetworkService.swift */; };
 		BE40184A27EF2F7F00F2E1DD /* RequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE40184927EF2F7F00F2E1DD /* RequestBuilder.swift */; };
 		BE40184E27EF307900F2E1DD /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE40184D27EF307900F2E1DD /* Constants.swift */; };
@@ -48,6 +50,8 @@
 		BE0926D527F078B40061E87E /* GalleryCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GalleryCollectionViewCell.xib; sourceTree = "<group>"; };
 		BE0926D827F0ACDD0061E87E /* Album.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
 		BE0926DA27F0FBBD0061E87E /* ResponseHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseHandler.swift; sourceTree = "<group>"; };
+		BE0926DC27F200380061E87E /* UIBarButtonItemExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBarButtonItemExtension.swift; sourceTree = "<group>"; };
+		BE0926DE27F2019F0061E87E /* NavigationControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationControllerExtension.swift; sourceTree = "<group>"; };
 		BE40184727EF2F6D00F2E1DD /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		BE40184927EF2F7F00F2E1DD /* RequestBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestBuilder.swift; sourceTree = "<group>"; };
 		BE40184D27EF307900F2E1DD /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -110,6 +114,8 @@
 			children = (
 				BE5B087027EF4C07000DCE48 /* URLExtension.swift */,
 				BED4A9CE27EFA2CD003F847C /* UIAlertControllerExtension.swift */,
+				BE0926DC27F200380061E87E /* UIBarButtonItemExtension.swift */,
+				BE0926DE27F2019F0061E87E /* NavigationControllerExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -406,6 +412,8 @@
 				BE0926DB27F0FBBD0061E87E /* ResponseHandler.swift in Sources */,
 				BED4A9CD27EF96D2003F847C /* DesignatedError.swift in Sources */,
 				BE0926D627F078B40061E87E /* GalleryCollectionViewCell.swift in Sources */,
+				BE0926DD27F200380061E87E /* UIBarButtonItemExtension.swift in Sources */,
+				BE0926DF27F2019F0061E87E /* NavigationControllerExtension.swift in Sources */,
 				BE5B086527EF4425000DCE48 /* AuthViewController.swift in Sources */,
 				BED8042027EE5039007A08F6 /* AppDelegate.swift in Sources */,
 				BE0926CE27F070370061E87E /* GalleryPresenter.swift in Sources */,

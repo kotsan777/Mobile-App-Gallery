@@ -10,10 +10,6 @@ import UIKit
 class GalleryCollectionViewCell: UICollectionViewCell {
 
     static let reuseIdentifier = "GalleryCollectionViewCell"
-    static let nibName = "GalleryCollectionViewCell"
 
     @IBOutlet var imageView: UIImageView!
-
-    
-
 }

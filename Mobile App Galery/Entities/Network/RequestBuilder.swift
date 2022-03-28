@@ -10,11 +10,11 @@ import UIKit
 class RequestBuilder {
 
     private enum UrlString {
+        static let authUrlString = "https://oauth.vk.com/authorize?client_id=8115695&display=page&redirect_uri=https://oauth.vk.com/blank.html&response_type=token"
         static func getTokenUrlString(with code: String) -> String {
             let urlString = "https://oauth.vk.com/access_token?client_id=8115695&client_secret=y9bXGZmLzAu2fqJS17o2&redirect_uri=https://oauth.vk.com/blank.html&code=\(code)"
             return urlString
         }
-        static let authUrlString = "https://oauth.vk.com/authorize?client_id=8115695&display=mobile&redirect_uri=https://oauth.vk.com/blank.html&response_type=code"
         static func getAlbumUrlString(with token: String) -> String {
             let urlString = "https://api.vk.com/method/photos.get?owner_id=-128666765&album_id=266276915&access_token=\(token)&v=5.131"
             return urlString

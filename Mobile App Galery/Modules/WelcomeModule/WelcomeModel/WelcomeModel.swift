@@ -22,12 +22,12 @@ class WelcomeModel: WelcomeModelProtocol {
     }
 
     func showAuthWebView() {
-        let vc = AuthViewController(nibName: "AuthViewController", bundle: nil)
+        let vc = AuthViewController(nibName: NibNames.authViewController, bundle: nil)
         presenter.showAuthWebView(with: vc)
     }
 
     func generateGalleryViewController() {
-        let vc = GalleryCollectionViewController(nibName: "GalleryCollectionViewController", bundle: nil)
+        let vc = GalleryCollectionViewController(nibName: NibNames.galleryCollectionViewController, bundle: nil)
         presenter.showGalleryViewController(vc)
     }
 }

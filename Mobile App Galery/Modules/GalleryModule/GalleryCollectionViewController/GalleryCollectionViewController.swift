@@ -24,6 +24,7 @@ class GalleryCollectionViewController: UICollectionViewController, GalleryCollec
     override func viewDidLoad() {
         super.viewDidLoad()
         configurator.configure(view: self)
+        setupViewController()
         registerCell(for: collectionView)
         setupCollectionViewDelegate(for: collectionView)
         setupCollectionViewDataSource(for: collectionView)
@@ -67,6 +68,12 @@ class GalleryCollectionViewController: UICollectionViewController, GalleryCollec
         present(alert, animated: true)
     }
 
+    @objc func exit() {
+        navigationController?.popViewController(animated: true)
+        UserDefaultsStorage.deleteCurrentToken()
+        UserDefaultsStorage.setIsTokenActual(with: false)
+    }
+
     private func registerCell(for collectionView: UICollectionView) {
         presenter.registerCell(for: collectionView)
     }
@@ -85,5 +92,14 @@ class GalleryCollectionViewController: UICollectionViewController, GalleryCollec
 
     private func fetchAlbumData() {
         presenter.fetchAlbumData()
+    }
+
+    private func setupViewController() {
+        navigationItem.setHidesBackButton(true, animated: false)
+        title = NavigationControllerConstants.galleryViewControllerTitle
+        navigationItem.rightBarButtonItem = UIBarButtonItem(config: .exitFromGallery)
+        navigationItem.backBarButtonItem = UIBarButtonItem(config: .defaultBackButtonItem)
+        navigationItem.rightBarButtonItem?.action = #selector(exit)
+        navigationItem.rightBarButtonItem?.target = self
     }
 }

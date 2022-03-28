@@ -32,22 +32,22 @@ class AuthModel: NSObject, AuthModelProtocol {
         webView.load(request)
     }
 
-    private func getToken(codeValue: String) {
-        NetworkService.shared.getAccessToken(code: codeValue) { [weak self] result in
-            guard let self = self else {
-                return
-            }
-            switch result {
-            case .success(let token):
-                UserDefaultsStorage.saveToken(token: token)
-                UserDefaultsStorage.setIsTokenActual(with: true)
-                DispatchQueue.main.async {
-                    self.presenter.tokenReceived()
-                }
-            case .failure(let error):
-                self.handleError(error: error)
-                UserDefaultsStorage.setIsTokenActual(with: false)
-            }
+    private func getToken(with url: URL) {
+        guard let accessToken = url.anchorValueOf("access_token"),
+              let expriresIn = url.anchorValueOf("expires_in"),
+              let userId = url.anchorValueOf("user_id") else {
+                  UserDefaultsStorage.setIsTokenActual(with: false)
+                  UserDefaultsStorage.deleteCurrentToken()
+            return
+        }
+        guard let expriresIn = Int(expriresIn), let userId = Int(userId) else {
+            return
+        }
+        let token = Token(accessToken: accessToken, expiresIn: expriresIn, userID: userId)
+        UserDefaultsStorage.saveToken(token: token)
+        UserDefaultsStorage.setIsTokenActual(with: true)
+        DispatchQueue.main.async {
+            self.presenter.tokenReceived()
         }
     }
 
@@ -66,10 +66,10 @@ class AuthModel: NSObject, AuthModelProtocol {
 }
 
 extension AuthModel: WKNavigationDelegate {
-    func webView(_ webView: WKWebView, didReceiveServerRedirectForProvisionalNavigation navigation: WKNavigation!) {
-        guard let url = webView.url, let codeValue = url.anchorValueOf("code")else {
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        guard let url = webView.url else {
             return
         }
-        getToken(codeValue: codeValue)
+        getToken(with: url)
     }
 }

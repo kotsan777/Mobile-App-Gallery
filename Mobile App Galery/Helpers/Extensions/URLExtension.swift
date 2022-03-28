@@ -23,10 +23,13 @@ extension URL {
 
     private func separateAnchor(_ anchor: String) -> [String: String] {
         var dict = [String: String]()
-        let array = anchor.components(separatedBy: "=")
-        let keyValuePairsCount = array.count / 2
-        for i in 0...keyValuePairsCount - 1 {
-            dict[array[i]] = array[i + 1]
+        let array = anchor.components(separatedBy: "&")
+        array.forEach { keyValueString in
+            let array = keyValueString.components(separatedBy: "=")
+            let keyValuePairsCount = array.count / 2
+            for i in 0...keyValuePairsCount - 1 {
+                dict[array[i]] = array[i + 1]
+            }
         }
         return dict
     }

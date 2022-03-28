@@ -26,7 +26,7 @@ class GalleryModel: NSObject, GalleryModelProtocol {
     }
 
     func registerCell(for collectionView: UICollectionView) {
-        let nib = UINib(nibName: GalleryCollectionViewCell.nibName, bundle: nil)
+        let nib = UINib(nibName: NibNames.galleryCollectionViewCell, bundle: nil)
         collectionView.register(nib, forCellWithReuseIdentifier: GalleryCollectionViewCell.reuseIdentifier)
     }
 

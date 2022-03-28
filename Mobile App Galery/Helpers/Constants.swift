@@ -47,12 +47,30 @@ enum GalleryFlowLayoutConstants {
     static let minimumLineSpacing: CGFloat = 2
     static let minimumInteritemSpacing: CGFloat = 2
     static let topInset: CGFloat = 0
-    static let horizontalWidthDevider: CGFloat = 4
-    static let verticalWidthDevider: CGFloat = 3
+    static let horizontalWidthDevider: CGFloat = 3
+    static let verticalWidthDevider: CGFloat = 2
     static var horizontalSubtracted: CGFloat {
         (horizontalWidthDevider > 2) ? minimumLineSpacing : minimumLineSpacing / 2
     }
     static var verticalSubtracted: CGFloat {
         (verticalWidthDevider > 2) ? minimumInteritemSpacing : minimumInteritemSpacing / 2
     }
+}
+
+enum NavigationControllerConstants {
+    static let titleFont: UIFont = .systemFont(ofSize: 18, weight: .semibold)
+    static let tintColor: UIColor = UIColor(red: 0.071, green: 0.071, blue: 0.071, alpha: 1)
+    static let galleryViewControllerTitle = "Mobile Up Gallery"
+}
+
+enum NavigationButtonItemsConstants {
+    static let exitGalleryText: String = "Выход"
+    static let exitGalleryFont: UIFont = .systemFont(ofSize: 18, weight: .medium)
+}
+
+enum NibNames {
+    static let welcomeViewController = "WelcomeViewController"
+    static let authViewController = "AuthViewController"
+    static let galleryCollectionViewController = "GalleryCollectionViewController"
+    static let galleryCollectionViewCell = "GalleryCollectionViewCell"
 }

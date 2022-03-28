@@ -20,6 +20,11 @@ class UserDefaultsStorage {
         UserDefaults.standard.set(value, forKey: key)
     }
 
+    static func deleteCurrentToken() {
+        let key = UserDefaultsStorageKeys.token
+        UserDefaults.standard.set(nil, forKey: key)
+    }
+
     static func getToken() -> Token? {
         guard let value = UserDefaults.standard.array(forKey: UserDefaultsStorageKeys.token),
               let userId = value[0] as? Int,

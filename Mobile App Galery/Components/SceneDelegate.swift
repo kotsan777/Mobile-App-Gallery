@@ -15,8 +15,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: windowScene)
-        let welcomeViewController = WelcomeViewController(nibName: "WelcomeViewController", bundle: nil)
-        let navigationController = UINavigationController(rootViewController: welcomeViewController)
+        let navigationController: UINavigationController = UINavigationController(config: .defaultConfig)
+        let welcomeViewController = WelcomeViewController(nibName: NibNames.welcomeViewController, bundle: nil)
+        let galleryViewController = GalleryCollectionViewController(nibName: NibNames.galleryCollectionViewController, bundle: nil)
+        if UserDefaultsStorage.isTokenActual {
+            navigationController.setViewControllers([welcomeViewController, galleryViewController], animated: true)
+        } else {
+            navigationController.setViewControllers([welcomeViewController], animated: true)
+        }
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
         self.window = window

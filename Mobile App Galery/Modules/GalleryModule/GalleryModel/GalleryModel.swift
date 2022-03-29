@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import WebKit
 
 protocol GalleryModelProtocol {
     func registerCell(for collectionView: UICollectionView)
@@ -14,6 +15,7 @@ protocol GalleryModelProtocol {
     func setupPrefetchDataSource(for collectionView: UICollectionView)
     func updateCollectionViewLayout(layout: UICollectionViewFlowLayout, with safeAreaLayoutGuide: UILayoutGuide)
     func fetchAlbumData()
+    func removeAuthRecords()
 }
 
 class GalleryModel: NSObject, GalleryModelProtocol {
@@ -75,6 +77,16 @@ class GalleryModel: NSObject, GalleryModelProtocol {
                 self.handleGetAlbumError(error: error)
             }
         }
+    }
+
+    func removeAuthRecords() {
+        WKWebsiteDataStore.default().fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) { records in
+            records.forEach { record in
+                WKWebsiteDataStore.default().removeData(ofTypes: record.dataTypes, for: [record], completionHandler: {})
+            }
+        }
+        UserDefaultsStorage.deleteCurrentToken()
+        UserDefaultsStorage.setIsTokenActual(with: false)
     }
 
     private func handleGetAlbumError(error: GetAlbumError) {

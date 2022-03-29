@@ -46,9 +46,7 @@ class AuthModel: NSObject, AuthModelProtocol {
         let token = Token(accessToken: accessToken, expiresIn: expriresIn, userID: userId)
         UserDefaultsStorage.saveToken(token: token)
         UserDefaultsStorage.setIsTokenActual(with: true)
-        DispatchQueue.main.async {
-            self.presenter.tokenReceived()
-        }
+        presenter.tokenReceived()
     }
 
     private func handleError(error: GetTokenError) {

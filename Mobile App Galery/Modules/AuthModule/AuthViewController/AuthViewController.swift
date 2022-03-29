@@ -31,7 +31,7 @@ class AuthViewController: UIViewController, AuthViewControllerProtocol {
     }
 
     func tokenReceived() {
-        guard let navigationController = self.presentingViewController as? UINavigationController,
+        guard let navigationController = presentingViewController as? UINavigationController,
               let welcomeVC = navigationController.topViewController as? WelcomeViewControllerProtocol else {
             return
         }

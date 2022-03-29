@@ -18,9 +18,11 @@ class UserDefaultsStorage {
     }
 
     static func saveToken(token: Token) {
-        let value: Any = [token.userID ,token.accessToken, token.expiresIn]
+        guard let token = try? JSONEncoder().encode(token) else {
+            return
+        }
         let key = UserDefaultsStorageKeys.token
-        UserDefaults.standard.set(value, forKey: key)
+        UserDefaults.standard.set(token, forKey: key)
     }
 
     static func deleteCurrentToken() {
@@ -29,13 +31,10 @@ class UserDefaultsStorage {
     }
 
     static func getToken() -> Token? {
-        guard let value = UserDefaults.standard.array(forKey: UserDefaultsStorageKeys.token),
-              let userId = value[0] as? Int,
-              let accessToken = value[1] as? String,
-              let expiresIn = value[2] as? Int else {
+        guard let data = UserDefaults.standard.value(forKey: UserDefaultsStorageKeys.token) as? Data,
+              let token = try? JSONDecoder().decode(Token.self, from: data)  else {
             return nil
         }
-        let token = Token(accessToken: accessToken, expiresIn: expiresIn, userID: userId)
         return token
     }
 

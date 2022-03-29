@@ -75,8 +75,7 @@ class GalleryCollectionViewController: UICollectionViewController, GalleryCollec
 
     @objc func exit() {
         navigationController?.popViewController(animated: true)
-        UserDefaultsStorage.deleteCurrentToken()
-        UserDefaultsStorage.setIsTokenActual(with: false)
+        presenter.removeAuthRecords()
     }
 
     private func registerCell(for collectionView: UICollectionView) {

@@ -116,4 +116,13 @@ extension PhotoModel: UICollectionViewDelegate, UICollectionViewDataSource {
         cell.cellImageView.sd_setImage(with: url, completed: nil)
         return cell
     }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? PhotoCollectionViewCell,
+              let data = cell.cellImageView.image?.sd_imageData() else {
+            return
+        }
+        UserDefaultsStorage.saveCurrentPhotoData(data: data)
+        presenter.updateCurrentPhoto()
+    }
 }

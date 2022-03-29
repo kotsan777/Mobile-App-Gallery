@@ -21,6 +21,7 @@ protocol PhotoPresenterProtocol {
     func sendShareViewController(viewController: UIActivityViewController)
     func showAlertSuccessSave()
     func showAlertFailedSave()
+    func updateCurrentPhoto()
 }
 
 class PhotoPresenter: PhotoPresenterProtocol {
@@ -82,5 +83,9 @@ class PhotoPresenter: PhotoPresenterProtocol {
 
     func showAlertFailedSave() {
         view.showAlertFailedSave()
+    }
+
+    func updateCurrentPhoto() {
+        view.updateCurrentPhoto()
     }
 }

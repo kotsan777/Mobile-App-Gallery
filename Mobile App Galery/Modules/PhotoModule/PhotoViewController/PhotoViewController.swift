@@ -14,6 +14,7 @@ protocol PhotoViewControllerProtocol: UIViewController {
     func presentShareViewController(viewController: UIActivityViewController)
     func showAlertSuccessSave()
     func showAlertFailedSave()
+    func updateCurrentPhoto()
 }
 
 class PhotoViewController: UIViewController, PhotoViewControllerProtocol {
@@ -62,6 +63,14 @@ class PhotoViewController: UIViewController, PhotoViewControllerProtocol {
 
     func presentShareViewController(viewController: UIActivityViewController) {
         present(viewController, animated: true)
+    }
+
+    func updateCurrentPhoto() {
+        guard let data = UserDefaultsStorage.getCurrentPhotoData() else {
+            return
+        }
+        let image = UIImage(data: data)
+        currentPhotoImageView.image = image
     }
 
     private func setupCollectionViewDelegate(_ collectionView: UICollectionView) {

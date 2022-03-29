@@ -48,7 +48,6 @@
 		BEDDDEE427F2617F008ECEBA /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDDDEE227F2617F008ECEBA /* PhotoCollectionViewCell.swift */; };
 		BEDDDEE527F2617F008ECEBA /* PhotoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEDDDEE327F2617F008ECEBA /* PhotoCollectionViewCell.xib */; };
 		BEED98BC27F31FD3007D25E6 /* PhotoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEED98BB27F31FD3007D25E6 /* PhotoViewController.xib */; };
-		BEED98C227F326F6007D25E6 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEED98C127F326F6007D25E6 /* ShareViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -97,7 +96,6 @@
 		BEDDDEE227F2617F008ECEBA /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		BEDDDEE327F2617F008ECEBA /* PhotoCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PhotoCollectionViewCell.xib; sourceTree = "<group>"; };
 		BEED98BB27F31FD3007D25E6 /* PhotoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhotoViewController.xib; sourceTree = "<group>"; };
-		BEED98C127F326F6007D25E6 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,7 +124,6 @@
 				18BEB41D433F8D292EB7AAE7 /* Pods-Mobile App Galery.debug.xcconfig */,
 				A4B0D73C46A4070CA944ADAC /* Pods-Mobile App Galery.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -333,7 +330,6 @@
 		BED8043427EE5114007A08F6 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				BEED98BF27F326DD007D25E6 /* ShareModule */,
 				BEDDDED227F25824008ECEBA /* PhotoModule */,
 				BED4A9D027EFB0D2003F847C /* GalleryModule */,
 				BE5B085F27EF43DC000DCE48 /* AuthModule */,
@@ -427,22 +423,6 @@
 				BEDDDEE327F2617F008ECEBA /* PhotoCollectionViewCell.xib */,
 			);
 			path = PhotoCollectionViewCell;
-			sourceTree = "<group>";
-		};
-		BEED98BF27F326DD007D25E6 /* ShareModule */ = {
-			isa = PBXGroup;
-			children = (
-				BEED98C027F326E7007D25E6 /* ShareViewController */,
-			);
-			path = ShareModule;
-			sourceTree = "<group>";
-		};
-		BEED98C027F326E7007D25E6 /* ShareViewController */ = {
-			isa = PBXGroup;
-			children = (
-				BEED98C127F326F6007D25E6 /* ShareViewController.swift */,
-			);
-			path = ShareViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -577,7 +557,6 @@
 				BEDDDEE427F2617F008ECEBA /* PhotoCollectionViewCell.swift in Sources */,
 				BE5B086527EF4425000DCE48 /* AuthViewController.swift in Sources */,
 				BED8042027EE5039007A08F6 /* AppDelegate.swift in Sources */,
-				BEED98C227F326F6007D25E6 /* ShareViewController.swift in Sources */,
 				BE0926CE27F070370061E87E /* GalleryPresenter.swift in Sources */,
 				BE0926D027F070400061E87E /* GalleryModel.swift in Sources */,
 				BEC0CD4F27EE5F15000331A0 /* WelcomeConfigurator.swift in Sources */,

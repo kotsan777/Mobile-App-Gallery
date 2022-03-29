@@ -15,6 +15,8 @@ extension UIAlertController {
         case specialError(_ error: DesignatedError)
         case accessFailed
         case parsImageError
+        case saveImageSuccess
+        case saveImageFailed
     }
 
     convenience init(config: Configuration) {
@@ -37,6 +39,12 @@ extension UIAlertController {
         case .parsImageError:
             self.init(title: nil, message: nil, preferredStyle: .alert)
             setupParsImageError()
+        case .saveImageSuccess:
+            self.init(title: nil, message: nil, preferredStyle: .alert)
+            setupSaveImageSuccess()
+        case .saveImageFailed:
+            self.init(title: nil, message: nil, preferredStyle: .alert)
+            setupSaveImageFailed()
         }
     }
 
@@ -78,6 +86,20 @@ extension UIAlertController {
     private func setupParsImageError() {
         title = "Ошибка загрузки фото"
         message = "Попробуйте снова"
+        let action = UIAlertAction(title: "Ок", style: .default)
+        addAction(action)
+    }
+
+    private func setupSaveImageSuccess() {
+        title = "Сохранено"
+        message = "Фотография успешно сохраненна"
+        let action = UIAlertAction(title: "Ок", style: .default)
+        addAction(action)
+    }
+
+    private func setupSaveImageFailed() {
+        title = "Ошибка"
+        message = "В ходе сохранения фотографии произошла ошибка. \nПопробуйте снова"
         let action = UIAlertAction(title: "Ок", style: .default)
         addAction(action)
     }

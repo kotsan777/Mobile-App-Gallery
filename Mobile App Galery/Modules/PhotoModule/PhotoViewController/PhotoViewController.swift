@@ -11,6 +11,9 @@ protocol PhotoViewControllerProtocol: UIViewController {
     var presenter: PhotoPresenterProtocol! {get set}
     func setTitle(_ title: String)
     func reloadData()
+    func presentShareViewController(viewController: UIActivityViewController)
+    func showAlertSuccessSave()
+    func showAlertFailedSave()
 }
 
 class PhotoViewController: UIViewController, PhotoViewControllerProtocol {
@@ -24,6 +27,7 @@ class PhotoViewController: UIViewController, PhotoViewControllerProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         configurator.configure(view: self)
+        setupViewController()
         setupCollectionViewDelegate(carouselCollectionView)
         setupCollectionViewDataSource(carouselCollectionView)
         registerCell(for: carouselCollectionView)
@@ -45,12 +49,20 @@ class PhotoViewController: UIViewController, PhotoViewControllerProtocol {
         UserDefaultsStorage.deleteCurrentPhotoData()
     }
 
+    @objc func shareButtonTapped() {
+        presenter.prepareShareViewController()
+    }
+
     func setTitle(_ title: String) {
         self.title = title
     }
 
     func reloadData() {
         carouselCollectionView.reloadData()
+    }
+
+    func presentShareViewController(viewController: UIActivityViewController) {
+        present(viewController, animated: true)
     }
 
     private func setupCollectionViewDelegate(_ collectionView: UICollectionView) {
@@ -74,5 +86,22 @@ class PhotoViewController: UIViewController, PhotoViewControllerProtocol {
 
     private func getTitle() {
         presenter.getTitle()
+    }
+
+    func setupViewController() {
+        let button = UIBarButtonItem(config: .shareButtonItem)
+        button.action = #selector(shareButtonTapped)
+        button.target = self
+        navigationItem.rightBarButtonItem = button
+    }
+
+    func showAlertSuccessSave() {
+        let alert = UIAlertController(config: .saveImageSuccess)
+        present(alert, animated: true)
+    }
+
+    func showAlertFailedSave() {
+        let alert = UIAlertController(config: .saveImageFailed)
+        present(alert, animated: true)
     }
 }

@@ -15,6 +15,7 @@ protocol PhotoModelProtocol {
     func setupImage(for imageView: UIImageView)
     func getTitle()
     func getAlbum()
+    func prepareShareViewController()
 }
 
 class PhotoModel: NSObject, PhotoModelProtocol {
@@ -66,6 +67,24 @@ class PhotoModel: NSObject, PhotoModelProtocol {
         let album = UserDefaultsStorage.getAlbum()
         self.album = album
         presenter.reloadData()
+    }
+
+    func prepareShareViewController() {
+        let currentPhotoImageData = UserDefaultsStorage.getCurrentPhotoData()
+        guard let image = UIImage(data: currentPhotoImageData) else {
+            return
+        }
+        let item: [Any] = [image as Any]
+        let vc = UIActivityViewController(activityItems: item, applicationActivities: nil)
+        vc.completionWithItemsHandler = { [weak self] _, isShared, _, error in
+            guard let self = self else {
+                return
+            }
+            if isShared {
+                (error == nil) ? self.presenter.showAlertSuccessSave() : self.presenter.showAlertFailedSave()
+            }
+        }
+        presenter.sendShareViewController(viewController: vc)
     }
 }
 

@@ -17,6 +17,10 @@ protocol PhotoPresenterProtocol {
     func setTitle(_ title: String)
     func getAlbum()
     func reloadData()
+    func prepareShareViewController()
+    func sendShareViewController(viewController: UIActivityViewController)
+    func showAlertSuccessSave()
+    func showAlertFailedSave()
 }
 
 class PhotoPresenter: PhotoPresenterProtocol {
@@ -62,5 +66,21 @@ class PhotoPresenter: PhotoPresenterProtocol {
 
     func reloadData() {
         view.reloadData()
+    }
+
+    func prepareShareViewController() {
+        model.prepareShareViewController()
+    }
+
+    func sendShareViewController(viewController: UIActivityViewController) {
+        view.presentShareViewController(viewController: viewController)
+    }
+
+    func showAlertSuccessSave() {
+        view.showAlertSuccessSave()
+    }
+
+    func showAlertFailedSave() {
+        view.showAlertFailedSave()
     }
 }

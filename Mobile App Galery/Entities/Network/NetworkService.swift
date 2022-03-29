@@ -10,7 +10,7 @@ import UIKit
 class NetworkService {
     static let shared = NetworkService()
 
-    let imageChache = NSCache<NSString, UIImage>()
+    private let imageChache = NSCache<NSString, UIImage>()
 
     func getAlbumData(completion: @escaping (GetAlbumResult) -> Void) {
         guard let token = UserDefaultsStorage.getToken(),

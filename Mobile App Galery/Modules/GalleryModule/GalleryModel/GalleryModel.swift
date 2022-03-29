@@ -69,6 +69,7 @@ class GalleryModel: NSObject, GalleryModelProtocol {
             switch result {
             case .success(let album):
                 self.album = album
+                UserDefaultsStorage.saveAlbumData(album: album)
                 self.presenter.reloadCollectionView()
             case .failure(let error):
                 self.handleGetAlbumError(error: error)
@@ -153,5 +154,16 @@ extension GalleryModel: UICollectionViewDelegate, UICollectionViewDataSource, UI
                 }
             }
         }
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let currentItem = album?.response.items[indexPath.row],
+              let cell = collectionView.cellForItem(at: indexPath) as? GalleryCollectionViewCell,
+              let data = cell.imageView.image?.pngData()else {
+            return
+        }
+        UserDefaultsStorage.saveCurrentPhoto(item: currentItem, data: data)
+        let photoViewController = PhotoViewController(nibName: NibNames.photoViewController, bundle: nil)
+        presenter.showPhotoViewController(photoViewController)
     }
 }

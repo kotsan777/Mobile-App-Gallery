@@ -14,6 +14,7 @@ protocol GalleryCollectionViewControllerProtocol: UIViewController {
     func showAlertAccessFailed()
     func showAlertUnknownError()
     func showAlertParsImageError()
+    func showPhotoViewController(_ photoViewController: PhotoViewControllerProtocol)
 }
 
 class GalleryCollectionViewController: UICollectionViewController, GalleryCollectionViewControllerProtocol {
@@ -66,6 +67,10 @@ class GalleryCollectionViewController: UICollectionViewController, GalleryCollec
     func showAlertParsImageError() {
         let alert = UIAlertController(config: .parsImageError)
         present(alert, animated: true)
+    }
+
+    func showPhotoViewController(_ photoViewController: PhotoViewControllerProtocol) {
+        navigationController?.pushViewController(photoViewController, animated: true)
     }
 
     @objc func exit() {

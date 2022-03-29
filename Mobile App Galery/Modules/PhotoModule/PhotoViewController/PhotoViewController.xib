@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PhotoViewController" customModule="Mobile_App_Galery" customModuleProvider="target">
+            <connections>
+                <outlet property="carouselCollectionView" destination="NZB-R5-37n" id="BrE-Ri-HR3"/>
+                <outlet property="currentPhotoImageView" destination="4Yj-fD-ccW" id="Iqa-iW-x3w"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4Yj-fD-ccW">
+                    <rect key="frame" x="0.0" y="241" width="414" height="414"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="4Yj-fD-ccW" secondAttribute="height" id="bwz-Q4-MXZ"/>
+                    </constraints>
+                </imageView>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="NZB-R5-37n">
+                    <rect key="frame" x="0.0" y="806" width="414" height="56"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="56" id="KOP-3m-1ge"/>
+                    </constraints>
+                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="RHH-5E-MGS">
+                        <size key="itemSize" width="128" height="128"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                </collectionView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="NZB-R5-37n" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="9jw-pW-MHq"/>
+                <constraint firstItem="4Yj-fD-ccW" firstAttribute="top" relation="greaterThanOrEqual" secondItem="fnl-2z-Ty3" secondAttribute="top" priority="950" id="QdD-2T-Owh"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="NZB-R5-37n" secondAttribute="bottom" id="QsU-pI-fBJ"/>
+                <constraint firstItem="NZB-R5-37n" firstAttribute="top" relation="greaterThanOrEqual" secondItem="4Yj-fD-ccW" secondAttribute="bottom" priority="950" id="ay6-0L-RMA"/>
+                <constraint firstItem="4Yj-fD-ccW" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="e8B-Vs-r1e"/>
+                <constraint firstItem="4Yj-fD-ccW" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="fBv-St-PwF"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="4Yj-fD-ccW" secondAttribute="trailing" priority="900" id="msY-uj-mqy"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="NZB-R5-37n" secondAttribute="trailing" id="tta-V3-sbb"/>
+                <constraint firstItem="4Yj-fD-ccW" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" priority="900" id="zi4-f5-B7o"/>
+            </constraints>
+            <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+            <point key="canvasLocation" x="139" y="114"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

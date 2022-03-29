@@ -57,6 +57,11 @@ enum GalleryFlowLayoutConstants {
     }
 }
 
+enum PhotoFlowLayoutConstants {
+    static let minimumLineSpacing: CGFloat = 2
+    static var sideSize: CGFloat = 56
+}
+
 enum NavigationControllerConstants {
     static let titleFont: UIFont = .systemFont(ofSize: 18, weight: .semibold)
     static let tintColor: UIColor = UIColor(red: 0.071, green: 0.071, blue: 0.071, alpha: 1)
@@ -73,4 +78,6 @@ enum NibNames {
     static let authViewController = "AuthViewController"
     static let galleryCollectionViewController = "GalleryCollectionViewController"
     static let galleryCollectionViewCell = "GalleryCollectionViewCell"
+    static let photoViewController = "PhotoViewController"
+    static let photoCollectionViewCell = "PhotoCollectionViewCell"
 }

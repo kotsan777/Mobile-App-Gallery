@@ -107,10 +107,12 @@ extension PhotoModel: UICollectionViewDelegate, UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCollectionViewCell.reuseIdentifier, for: indexPath) as? PhotoCollectionViewCell else {
             return UICollectionViewCell()
         }
-        guard let urlString = album?.response.items[indexPath.row][.x]?.url,
+        guard let urlString = album?.response.items[indexPath.row][.w]?.url,
               let url = URL(string: urlString) else {
             return UICollectionViewCell()
         }
+        cell.cellImageView.sd_imageIndicator = SDWebImageActivityIndicator.gray
+        cell.cellImageView.sd_imageIndicator = SDWebImageProgressIndicator.default
         cell.cellImageView.sd_setImage(with: url, completed: nil)
         return cell
     }

@@ -137,6 +137,8 @@ extension GalleryModel: UICollectionViewDelegate, UICollectionViewDataSource, UI
               let url = URL(string: imageURL) else {
             return UICollectionViewCell()
         }
+        cell.imageView.sd_imageIndicator = SDWebImageActivityIndicator.gray
+        cell.imageView.sd_imageIndicator = SDWebImageProgressIndicator.bar
         cell.imageView.sd_setImage(with: url, completed: nil)
         return cell
     }
@@ -151,6 +153,8 @@ extension GalleryModel: UICollectionViewDelegate, UICollectionViewDataSource, UI
                   let url = URL(string: imageURL) else {
                 return
             }
+            cell.imageView.sd_imageIndicator = SDWebImageActivityIndicator.gray
+            cell.imageView.sd_imageIndicator = SDWebImageProgressIndicator.default
             cell.imageView.sd_setImage(with: url, completed: nil)
         }
     }

@@ -45,8 +45,7 @@ class PhotoViewController: UIViewController, PhotoViewControllerProtocol {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        UserDefaultsStorage.deleteCurrentPhotoDate()
-        UserDefaultsStorage.deleteCurrentPhotoData()
+        UserDefaultsStorage.deleteCurrentItem()
     }
 
     @objc func shareButtonTapped() {
@@ -78,7 +77,9 @@ class PhotoViewController: UIViewController, PhotoViewControllerProtocol {
     }
 
     private func setupImage(for imageView: UIImageView) {
-        let data = UserDefaultsStorage.getCurrentPhotoData()
+        guard let data = UserDefaultsStorage.getCurrentPhotoData() else {
+            return
+        }
         let image = UIImage(data: data)
         imageView.image = image
         presenter.setupImage(for: imageView)

@@ -7,6 +7,7 @@
 
 import UIKit
 import WebKit
+import SDWebImage
 
 protocol GalleryModelProtocol {
     func registerCell(for collectionView: UICollectionView)
@@ -132,20 +133,11 @@ extension GalleryModel: UICollectionViewDelegate, UICollectionViewDataSource, UI
         guard let album = album else {
             return UICollectionViewCell()
         }
-        guard let imageURL = album.response.items[indexPath.row][.w]?.url else {
+        guard let imageURL = album.response.items[indexPath.row][.w]?.url,
+              let url = URL(string: imageURL) else {
             return UICollectionViewCell()
         }
-        NetworkService.shared.getImage(with: imageURL) { [weak self] result in
-            guard let self = self else {
-                return
-            }
-            switch result {
-            case .success(let image):
-                cell.imageView.image = image
-            case .failure(let error):
-                self.handleGetImageError(error: error)
-            }
-        }
+        cell.imageView.sd_setImage(with: url, completed: nil)
         return cell
     }
 
@@ -154,27 +146,23 @@ extension GalleryModel: UICollectionViewDelegate, UICollectionViewDataSource, UI
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GalleryCollectionViewCell.reuseIdentifier, for: indexPath) as? GalleryCollectionViewCell else {
                 return
             }
-            guard let album = album, let imageURL = album.response.items[indexPath.row][.w]?.url else {
+            guard let album = album,
+                  let imageURL = album.response.items[indexPath.row][.w]?.url,
+                  let url = URL(string: imageURL) else {
                 return
             }
-            NetworkService.shared.getImage(with: imageURL) { result in
-                switch result {
-                case .success(let image):
-                    cell.imageView.image = image
-                case .failure:
-                    break
-                }
-            }
+            cell.imageView.sd_setImage(with: url, completed: nil)
         }
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let currentItem = album?.response.items[indexPath.row],
               let cell = collectionView.cellForItem(at: indexPath) as? GalleryCollectionViewCell,
-              let data = cell.imageView.image?.pngData()else {
+              let currentImageData = cell.imageView.image?.sd_imageData() else {
             return
         }
-        UserDefaultsStorage.saveCurrentPhoto(item: currentItem, data: data)
+        UserDefaultsStorage.saveCurrentPhotoData(data: currentImageData)
+        UserDefaultsStorage.saveCurrentItem(item: currentItem)
         let photoViewController = PhotoViewController(nibName: NibNames.photoViewController, bundle: nil)
         presenter.showPhotoViewController(photoViewController)
     }

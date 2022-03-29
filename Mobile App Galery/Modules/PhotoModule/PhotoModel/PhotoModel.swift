@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 protocol PhotoModelProtocol {
     func setupCollectionViewDelegate(_ collectionView: UICollectionView)
@@ -46,17 +47,23 @@ class PhotoModel: NSObject, PhotoModelProtocol {
     }
 
     func setupImage(for imageView: UIImageView) {
-        let data = UserDefaultsStorage.getCurrentPhotoData()
-        let image = UIImage(data: data)
-        imageView.image = image
+        guard let item = UserDefaultsStorage.getCurrentItem(),
+              let currentUrlString = item[.w]?.url,
+              let url = URL(string: currentUrlString) else {
+            return
+        }
+        imageView.sd_setImage(with: url, completed: nil)
     }
 
     func getTitle() {
+        guard let item = UserDefaultsStorage.getCurrentItem() else {
+            return
+        }
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .long
         dateFormatter.timeStyle = .none
         dateFormatter.locale = Locale(identifier: "ru_RU")
-        let unixDate = UserDefaultsStorage.getCurrentPhotoDate()
+        let unixDate = item.date
         let date = Date(timeIntervalSince1970: Double(unixDate))
         let rawDateString = dateFormatter.string(from: date)
         let resultString = String(rawDateString.dropLast(3))
@@ -70,12 +77,12 @@ class PhotoModel: NSObject, PhotoModelProtocol {
     }
 
     func prepareShareViewController() {
-        let currentPhotoImageData = UserDefaultsStorage.getCurrentPhotoData()
-        guard let image = UIImage(data: currentPhotoImageData) else {
+        guard let currentPhotoImageData = UserDefaultsStorage.getCurrentPhotoData(),
+              let image = UIImage(data: currentPhotoImageData) else {
             return
         }
-        let item: [Any] = [image as Any]
-        let vc = UIActivityViewController(activityItems: item, applicationActivities: nil)
+        let activityItem: [Any] = [image as Any]
+        let vc = UIActivityViewController(activityItems: activityItem, applicationActivities: nil)
         vc.completionWithItemsHandler = { [weak self] _, isShared, _, error in
             guard let self = self else {
                 return
@@ -100,17 +107,11 @@ extension PhotoModel: UICollectionViewDelegate, UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCollectionViewCell.reuseIdentifier, for: indexPath) as? PhotoCollectionViewCell else {
             return UICollectionViewCell()
         }
-        guard let urlString = album?.response.items[indexPath.row][.x]?.url else {
+        guard let urlString = album?.response.items[indexPath.row][.x]?.url,
+              let url = URL(string: urlString) else {
             return UICollectionViewCell()
         }
-        NetworkService.shared.getImage(with: urlString) { result in
-            switch result {
-            case .success(let image):
-                cell.cellImageView.image = image
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
+        cell.cellImageView.sd_setImage(with: url, completed: nil)
         return cell
     }
 }

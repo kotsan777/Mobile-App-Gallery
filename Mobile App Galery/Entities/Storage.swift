@@ -6,14 +6,15 @@
 //
 
 import UIKit
+import SDWebImage
 
 class UserDefaultsStorage {
 
     enum UserDefaultsStorageKeys {
         static let token = "token"
         static let isTokenActual = "isTokenActual"
+        static let currentItem = "currentItem"
         static let currentPhotoData = "currentPhotoData"
-        static let currentPhotoDate = "currentPhotoDate"
         static let albumData = "albumData"
     }
 
@@ -46,31 +47,34 @@ class UserDefaultsStorage {
         return UserDefaults.standard.bool(forKey: UserDefaultsStorageKeys.isTokenActual)
     }
 
-    static func saveCurrentPhoto(item: Item, data: Data) {
-        UserDefaults.standard.set(data, forKey: UserDefaultsStorageKeys.currentPhotoData)
-        UserDefaults.standard.set(item.date, forKey: UserDefaultsStorageKeys.currentPhotoDate)
+    static func saveCurrentItem(item: Item) {
+        guard let itemData = try? JSONEncoder().encode(item) else {
+            return
+        }
+        UserDefaults.standard.set(itemData, forKey: UserDefaultsStorageKeys.currentItem)
     }
 
-    static func getCurrentPhotoData() -> Data {
-        guard let data = UserDefaults.standard.value(forKey: UserDefaultsStorageKeys.currentPhotoData) as? Data else {
-            return Data()
+    static func saveCurrentPhotoData(data: Data) {
+        UserDefaults.standard.set(data, forKey: UserDefaultsStorageKeys.currentPhotoData)
+    }
+
+    static func getCurrentPhotoData() -> Data? {
+        guard let data = UserDefaults.standard.data(forKey: UserDefaultsStorageKeys.currentPhotoData) else{
+            return nil
         }
         return data
     }
 
-    static func getCurrentPhotoDate() -> Int {
-        guard let date = UserDefaults.standard.value(forKey: UserDefaultsStorageKeys.currentPhotoDate) as? Int else {
-            return 0
+    static func getCurrentItem() -> Item? {
+        guard let data = UserDefaults.standard.value(forKey: UserDefaultsStorageKeys.currentItem) as? Data,
+              let item = try? JSONDecoder().decode(Item.self, from: data) else {
+            return nil
         }
-        return date
+        return item
     }
 
-    static func deleteCurrentPhotoData() {
-        UserDefaults.standard.set(nil, forKey: UserDefaultsStorageKeys.currentPhotoData)
-    }
-
-    static func deleteCurrentPhotoDate() {
-        UserDefaults.standard.set(nil, forKey: UserDefaultsStorageKeys.currentPhotoDate)
+    static func deleteCurrentItem() {
+        UserDefaults.standard.set(nil, forKey: UserDefaultsStorageKeys.currentItem)
     }
 
     static func saveAlbumData(album: Album?) {

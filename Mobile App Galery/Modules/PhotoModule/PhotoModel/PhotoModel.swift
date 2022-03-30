@@ -101,6 +101,8 @@ class PhotoModel: NSObject, PhotoModelProtocol {
         }
         let location = gesture.location(in: gestureView)
         switch gesture.state {
+        case .began:
+            presenter.hideViewsExceptPhoto()
         case .changed:
             let pinchCenter = CGPoint(x: location.x - gestureView.bounds.midX,
                                       y: location.y - gestureView.bounds.midY)
@@ -108,7 +110,6 @@ class PhotoModel: NSObject, PhotoModelProtocol {
                                             .scaledBy(x: gesture.scale, y: gesture.scale)
                                             .translatedBy(x: -pinchCenter.x, y: -pinchCenter.y)
             gestureView.transform = transform
-            presenter.hideViewsExceptPhoto()
             gesture.scale = 1
         case .ended:
             UIView.animate(withDuration: 0.5) {

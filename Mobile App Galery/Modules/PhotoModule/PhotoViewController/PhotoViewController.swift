@@ -92,13 +92,17 @@ class PhotoViewController: UIViewController, PhotoViewControllerProtocol {
     }
 
     func hideViewsExceptPhoto() {
-        carouselCollectionView.isHidden = true
-        navigationController?.navigationBar.isHidden = true
+        UIView.animate(withDuration: 0.5) {
+            self.carouselCollectionView.layer.opacity = 0
+            self.navigationController?.navigationBar.layer.opacity = 0
+        }
     }
 
     func showViews() {
-        carouselCollectionView.isHidden = false
-        navigationController?.navigationBar.isHidden = false
+        UIView.animate(withDuration: 0.5) {
+            self.carouselCollectionView.layer.opacity = 1
+            self.navigationController?.navigationBar.layer.opacity = 1
+        }
     }
 
     private func setupCollectionViewDelegate(_ collectionView: UICollectionView) {

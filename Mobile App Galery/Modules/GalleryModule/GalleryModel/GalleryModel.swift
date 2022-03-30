@@ -81,6 +81,11 @@ class GalleryModel: NSObject, GalleryModelProtocol {
     }
 
     func removeAuthRecords() {
+        WKWebsiteDataStore.default().fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) { records in
+            records.forEach { record in
+                WKWebsiteDataStore.default().removeData(ofTypes: record.dataTypes, for: [record], completionHandler: {})
+            }
+        }
         UserDefaultsStorage.deleteCurrentToken()
         UserDefaultsStorage.setIsTokenActual(with: false)
     }

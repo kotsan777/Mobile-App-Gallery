@@ -45,15 +45,6 @@ class AuthModel: NSObject, AuthModelProtocol {
         UserDefaultsStorage.saveToken(token: token)
         UserDefaultsStorage.setIsTokenActual(with: true)
         presenter.tokenReceived()
-        removeWebKitData()
-    }
-
-    private func removeWebKitData() {
-        WKWebsiteDataStore.default().fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) { records in
-            records.forEach { record in
-                WKWebsiteDataStore.default().removeData(ofTypes: record.dataTypes, for: [record], completionHandler: {})
-            }
-        }
     }
 }
 

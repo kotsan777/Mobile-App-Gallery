@@ -83,11 +83,13 @@ class PhotoViewController: UIViewController, PhotoViewControllerProtocol {
 
     func showAlertSuccessSave() {
         let alert = UIAlertController(config: .saveImageSuccess)
+        alert.addAction(config: .ok)
         present(alert, animated: true)
     }
 
     func showAlertFailedSave() {
         let alert = UIAlertController(config: .saveImageFailed)
+        alert.addAction(config: .ok)
         present(alert, animated: true)
     }
 

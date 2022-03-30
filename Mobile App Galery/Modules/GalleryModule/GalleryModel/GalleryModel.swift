@@ -81,11 +81,6 @@ class GalleryModel: NSObject, GalleryModelProtocol {
     }
 
     func removeAuthRecords() {
-        WKWebsiteDataStore.default().fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) { records in
-            records.forEach { record in
-                WKWebsiteDataStore.default().removeData(ofTypes: record.dataTypes, for: [record], completionHandler: {})
-            }
-        }
         UserDefaultsStorage.deleteCurrentToken()
         UserDefaultsStorage.setIsTokenActual(with: false)
     }
@@ -94,25 +89,12 @@ class GalleryModel: NSObject, GalleryModelProtocol {
         switch error {
         case .unknownError:
             presenter.showAlertUnknownError()
-        case .accessToAlbumFailed:
-            presenter.showAlertAccessFailed()
         case .error(let error):
             presenter.showAlertError(error: error)
-        case .dataIsEmpty:
-            presenter.showAlertDataIsEmpty()
-        }
-    }
-
-    private func handleGetImageError(error: GetImageError) {
-        switch error {
-        case .unknownError:
-            presenter.showAlertUnknownError()
-        case .decodeDataError:
-            presenter.showAlertParsImageError()
-        case .dataIsEmpty:
-            presenter.showAlertDataIsEmpty()
-        case .error(let error):
-            presenter.showAlertError(error: error)
+        case .userNotSignedIn:
+            presenter.showAlertUserNotSignedIn()
+        case .designatedError(let error):
+            presenter.showAlertDesignatedError(error: error)
         }
     }
 }
@@ -137,9 +119,10 @@ extension GalleryModel: UICollectionViewDelegate, UICollectionViewDataSource, UI
               let url = URL(string: imageURL) else {
             return UICollectionViewCell()
         }
-        cell.imageView.sd_imageIndicator = SDWebImageActivityIndicator.gray
+        cell.imageView.sd_imageIndicator = SDWebImageActivityIndicator.grayLarge
         cell.imageView.sd_imageIndicator = SDWebImageProgressIndicator.bar
-        cell.imageView.sd_setImage(with: url, completed: nil)
+        cell.imageView.sd_imageIndicator?.indicatorView.contentMode = .bottom
+        cell.imageView.sd_setImage(with: url, placeholderImage: UIImage())
         return cell
     }
 
@@ -155,7 +138,7 @@ extension GalleryModel: UICollectionViewDelegate, UICollectionViewDataSource, UI
             }
             cell.imageView.sd_imageIndicator = SDWebImageActivityIndicator.gray
             cell.imageView.sd_imageIndicator = SDWebImageProgressIndicator.default
-            cell.imageView.sd_setImage(with: url, completed: nil)
+            cell.imageView.sd_setImage(with: url)
         }
     }
 

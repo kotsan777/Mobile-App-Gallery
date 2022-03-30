@@ -33,11 +33,9 @@ class AuthModel: NSObject, AuthModelProtocol {
     }
 
     private func getToken(with url: URL) {
-        guard let accessToken = url.anchorValueOf("access_token"),
-              let expriresIn = url.anchorValueOf("expires_in"),
-              let userId = url.anchorValueOf("user_id") else {
-                  UserDefaultsStorage.setIsTokenActual(with: false)
-                  UserDefaultsStorage.deleteCurrentToken()
+        guard let accessToken = url.queryValue(of: URL.QueryParameterType.accessToken),
+              let expriresIn = url.queryValue(of: URL.QueryParameterType.expiresIn),
+              let userId = url.queryValue(of: URL.QueryParameterType.userId) else {
             return
         }
         guard let expriresIn = Int(expriresIn), let userId = Int(userId) else {
@@ -47,27 +45,29 @@ class AuthModel: NSObject, AuthModelProtocol {
         UserDefaultsStorage.saveToken(token: token)
         UserDefaultsStorage.setIsTokenActual(with: true)
         presenter.tokenReceived()
+        removeWebKitData()
     }
 
-    private func handleError(error: GetTokenError) {
-        switch error {
-        case .unknownError:
-            presenter.showAlertUnknownError()
-        case .failDecodeData:
-            presenter.showAlertFailDecode()
-        case .error(let error):
-            presenter.showAlertError(error: error)
-        case .specialError(let error):
-            presenter.showAlertSpecialError(error: error)
+    private func removeWebKitData() {
+        WKWebsiteDataStore.default().fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) { records in
+            records.forEach { record in
+                WKWebsiteDataStore.default().removeData(ofTypes: record.dataTypes, for: [record], completionHandler: {})
+            }
         }
     }
 }
 
 extension AuthModel: WKNavigationDelegate {
-    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        guard let url = webView.url else {
+
+    func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+        presenter.showAlertError(error: error)
+    }
+
+    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+        guard let url = webView.url, let fragment = url.fragment else {
             return
         }
-        getToken(with: url)
+        let isFragmentContainToken = fragment.contains(URL.QueryParameterType.accessToken)
+        isFragmentContainToken ? (getToken(with: url)) : nil
     }
 }

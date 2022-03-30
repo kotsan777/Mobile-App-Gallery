@@ -9,26 +9,34 @@ import UIKit
 
 class RequestBuilder {
 
-    private enum UrlString {
-        static let authUrlString = "https://oauth.vk.com/authorize?client_id=8115695&display=page&redirect_uri=https://oauth.vk.com/blank.html&response_type=token"
-        static func getAlbumUrlString(with token: String) -> String {
-            let urlString = "https://api.vk.com/method/photos.get?owner_id=-128666765&album_id=266276915&access_token=\(token)&v=5.131"
-            return urlString
-        }
-    }
-
     static func getAuthRequest() -> URLRequest? {
-        let urlString = UrlString.authUrlString
-        guard let URL = URL(string: urlString) else {
+        var components = URLComponents()
+        components.scheme = AuthRequestConstants.scheme
+        components.host = AuthRequestConstants.host
+        components.path = AuthRequestConstants.path
+        let params = [AuthRequestConstants.clientIdKey: AuthRequestConstants.clientIdValue,
+                      AuthRequestConstants.displayKey: AuthRequestConstants.displayValue,
+                      AuthRequestConstants.redirectUriKey: AuthRequestConstants.redirectUriValue,
+                      AuthRequestConstants.responseTypeKey: AuthRequestConstants.responseTypeValue]
+        components.queryItems = params.map { URLQueryItem(name: $0, value: $1) }
+        guard let url = components.url else {
             return nil
         }
-        let request = URLRequest(url: URL)
+        let request = URLRequest(url: url)
         return request
     }
 
     static func getAlbumRequest(with token: Token) -> URLRequest? {
-        let urlString = UrlString.getAlbumUrlString(with: token.accessToken)
-        guard let url = URL(string: urlString) else {
+        var components = URLComponents()
+        components.scheme = GetPhotoRequestConstants.scheme
+        components.host = GetPhotoRequestConstants.host
+        components.path = GetPhotoRequestConstants.path
+        let params = [GetPhotoRequestConstants.ownerIdKey: GetPhotoRequestConstants.ownerIdValue,
+                      GetPhotoRequestConstants.albumIdKey: GetPhotoRequestConstants.albumIdValue,
+                      GetPhotoRequestConstants.tokenKey: token.accessToken,
+                      GetPhotoRequestConstants.versionKey: GetPhotoRequestConstants.versionValue]
+        components.queryItems = params.map { URLQueryItem(name: $0, value: $1) }
+        guard let url = components.url else {
             return nil
         }
         let request = URLRequest(url: url)

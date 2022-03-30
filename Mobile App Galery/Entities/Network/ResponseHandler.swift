@@ -9,18 +9,16 @@ import UIKit
 
 class ResponseHandler {
 
-    static func handleGetAlbumResponse(_ response: HTTPURLResponse, data: Data) -> GetAlbumResult {
-        switch response.statusCode {
-        case 200:
-            do {
-                let album = try JSONDecoder().decode(Album.self, from: data)
-                return .success(album: album)
+    static func handleGetAlbumResponse(data: Data) -> GetAlbumResult {
+        do {
+            let album = try JSONDecoder().decode(Album.self, from: data)
+            return .success(album: album)
+        }
+        catch {
+            guard let error = try? JSONDecoder().decode(DesignatedError.self, from: data) else {
+                return .failure(.unknownError)
             }
-            catch {
-                return .failure(.accessToAlbumFailed)
-            }
-        default:
-            return .failure(.unknownError)
+            return .failure(.designatedError(error))
         }
     }
 }

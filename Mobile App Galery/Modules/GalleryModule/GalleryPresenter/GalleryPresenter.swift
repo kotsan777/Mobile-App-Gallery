@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol GalleryPresenterProtocol {
+protocol GalleryPresenterProtocol: AnyObject {
     func registerCell(for collectionView: UICollectionView)
     func setupCollectionViewDelegate(for collectionView: UICollectionView)
     func setupCollectionViewDataSource(for collectionView: UICollectionView)
@@ -16,10 +16,9 @@ protocol GalleryPresenterProtocol {
     func fetchAlbumData()
     func reloadCollectionView()
     func showAlertError(error: Error)
-    func showAlertDataIsEmpty()
-    func showAlertAccessFailed()
+    func showAlertUserNotSignedIn()
+    func showAlertDesignatedError(error: DesignatedError)
     func showAlertUnknownError()
-    func showAlertParsImageError()
     func showPhotoViewController(_ photoViewController: PhotoViewControllerProtocol)
     func removeAuthRecords()
 }
@@ -65,20 +64,16 @@ class GalleryPresenter: GalleryPresenterProtocol {
         view.showAlertError(error: error)
     }
 
-    func showAlertDataIsEmpty() {
-        view.showAlertDataIsEmpty()
-    }
-
-    func showAlertAccessFailed() {
-        view.showAlertAccessFailed()
-    }
-
     func showAlertUnknownError() {
         view.showAlertUnknownError()
     }
 
-    func showAlertParsImageError() {
-        view.showAlertParsImageError()
+    func showAlertUserNotSignedIn() {
+        view.showAlertUserNotSignedIn()
+    }
+
+    func showAlertDesignatedError(error: DesignatedError) {
+        view.showAlertDesignatedError(error: error)
     }
 
     func showPhotoViewController(_ photoViewController: PhotoViewControllerProtocol) {

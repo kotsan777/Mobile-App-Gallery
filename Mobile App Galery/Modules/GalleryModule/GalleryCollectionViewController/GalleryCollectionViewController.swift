@@ -10,11 +10,10 @@ import UIKit
 protocol GalleryCollectionViewControllerProtocol: UIViewController {
     func reloadCollectionView()
     func showAlertError(error: Error)
-    func showAlertDataIsEmpty()
-    func showAlertAccessFailed()
     func showAlertUnknownError()
-    func showAlertParsImageError()
     func showPhotoViewController(_ photoViewController: PhotoViewControllerProtocol)
+    func showAlertUserNotSignedIn()
+    func showAlertDesignatedError(error: DesignatedError)
 }
 
 class GalleryCollectionViewController: UICollectionViewController, GalleryCollectionViewControllerProtocol {
@@ -33,6 +32,11 @@ class GalleryCollectionViewController: UICollectionViewController, GalleryCollec
         fetchAlbumData()
     }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        presenter.removeAuthRecords()
+    }
+
     override func viewSafeAreaInsetsDidChange() {
         guard let collectionViewLayout = collectionViewLayout as? UICollectionViewFlowLayout else {
             return
@@ -46,26 +50,31 @@ class GalleryCollectionViewController: UICollectionViewController, GalleryCollec
 
     func showAlertError(error: Error) {
         let alert = UIAlertController(config: .error(error))
-        present(alert, animated: true)
-    }
-
-    func showAlertDataIsEmpty() {
-        let alert = UIAlertController(config: .failedDecodeData)
-        present(alert, animated: true)
-    }
-
-    func showAlertAccessFailed() {
-        let alert = UIAlertController(config: .accessFailed)
+        alert.addAction(config: .ok)
+        alert.addAction(config: .reload) { [weak presenter] _ in
+            presenter?.fetchAlbumData()
+        }
         present(alert, animated: true)
     }
 
     func showAlertUnknownError() {
         let alert = UIAlertController(config: .unknownError)
+        alert.addAction(config: .ok)
         present(alert, animated: true)
     }
 
-    func showAlertParsImageError() {
-        let alert = UIAlertController(config: .parsImageError)
+    func showAlertUserNotSignedIn() {
+        let alert = UIAlertController(config: .userNotSignedIn)
+        alert.addAction(config: .cancell)
+        alert.addAction(config: .ok) { [weak navigationController] _ in
+            navigationController?.popViewController(animated: true)
+        }
+        present(alert, animated: true)
+    }
+
+    func showAlertDesignatedError(error: DesignatedError) {
+        let alert = UIAlertController(config: .designatedError(error))
+        alert.addAction(config: .ok)
         present(alert, animated: true)
     }
 
@@ -75,7 +84,6 @@ class GalleryCollectionViewController: UICollectionViewController, GalleryCollec
 
     @objc func exit() {
         navigationController?.popViewController(animated: true)
-        presenter.removeAuthRecords()
     }
 
     private func registerCell(for collectionView: UICollectionView) {

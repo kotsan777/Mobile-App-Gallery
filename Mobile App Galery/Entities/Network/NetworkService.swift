@@ -8,14 +8,17 @@
 import UIKit
 
 class NetworkService {
+
     static let shared = NetworkService()
     
     func getAlbumData(completion: @escaping (GetAlbumResult) -> Void) {
-        guard let token = UserDefaultsStorage.getToken(),
-              let request = RequestBuilder.getAlbumRequest(with: token) else {
+        guard let token = UserDefaultsStorage.getToken() else {
+            return completion(.failure(.userNotSignedIn))
+        }
+        guard let request = RequestBuilder.getAlbumRequest(with: token) else {
             return
         }
-        URLSession.shared.dataTask(with: request) { data, response, error in
+        URLSession.shared.dataTask(with: request) { data, _, error in
             var result: GetAlbumResult
             defer {
                 DispatchQueue.main.async {
@@ -26,15 +29,11 @@ class NetworkService {
                 result = .failure(.error(error!))
                 return
             }
-            guard let response = response as? HTTPURLResponse else {
+            guard let data = data else {
                 result = .failure(.unknownError)
                 return
             }
-            guard let data = data else {
-                result = .failure(.dataIsEmpty)
-                return
-            }
-            result = ResponseHandler.handleGetAlbumResponse(response, data: data)
+            result = ResponseHandler.handleGetAlbumResponse(data: data)
         }.resume()
     }
 }

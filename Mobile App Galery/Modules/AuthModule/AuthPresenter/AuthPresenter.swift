@@ -12,10 +12,7 @@ protocol AuthPresenterProtocol {
     func setupDelegate(to webView: WKWebView)
     func setupWebView(_ webView: WKWebView)
     func tokenReceived()
-    func showAlertUnknownError()
-    func showAlertFailDecode()
     func showAlertError(error: Error)
-    func showAlertSpecialError(error: DesignatedError)
 }
 
 class AuthPresenter: AuthPresenterProtocol {
@@ -39,19 +36,7 @@ class AuthPresenter: AuthPresenterProtocol {
         view.tokenReceived()
     }
 
-    func showAlertUnknownError() {
-        view.showAlertUnknownError()
-    }
-
-    func showAlertFailDecode() {
-        view.showAlertFailDecode()
-    }
-
     func showAlertError(error: Error) {
         view.showAlertError(error: error)
-    }
-
-    func showAlertSpecialError(error: DesignatedError) {
-        view.showAlertSpecialError(error: error)
     }
 }

@@ -10,10 +10,7 @@ import WebKit
 
 protocol AuthViewControllerProtocol {
     func tokenReceived()
-    func showAlertUnknownError()
-    func showAlertFailDecode()
     func showAlertError(error: Error)
-    func showAlertSpecialError(error: DesignatedError)
 }
 
 class AuthViewController: UIViewController, AuthViewControllerProtocol {
@@ -39,23 +36,20 @@ class AuthViewController: UIViewController, AuthViewControllerProtocol {
         dismiss(animated: true)
     }
 
-    func showAlertUnknownError() {
-        let alert = UIAlertController(config: .unknownError)
-        present(alert, animated: true)
-    }
-
-    func showAlertFailDecode() {
-        let alert = UIAlertController(config: .failedDecodeData)
-        present(alert, animated: true)
-    }
-
     func showAlertError(error: Error) {
         let alert = UIAlertController(config: .error(error))
-        present(alert, animated: true)
-    }
-
-    func showAlertSpecialError(error: DesignatedError) {
-        let alert = UIAlertController(config: .specialError(error))
+        alert.addAction(config: .exit) { [weak self]_ in
+            guard let self = self else {
+                return
+            }
+            self.dismiss(animated: true)
+        }
+        alert.addAction(config: .reload) { [weak self] _ in
+            guard let self = self else {
+                return
+            }
+            self.presenter.setupWebView(self.webView)
+        }
         present(alert, animated: true)
     }
 

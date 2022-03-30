@@ -8,28 +8,29 @@
 import UIKit
 
 extension URL {
-    func anchorValueOf(_ queryParameterName: String) -> String? {
-        let absoluteURL = self.absoluteString
-        let anchor = getAnchor(absoluteURL: absoluteURL)
-        let anchorDictionary = separateAnchor(anchor)
-        return anchorDictionary[queryParameterName]
+
+    enum QueryParameterType {
+        static let accessToken = "access_token"
+        static let expiresIn = "expires_in"
+        static let userId = "user_id"
     }
 
-    private func getAnchor(absoluteURL: String) -> String {
-        let separatedURL = absoluteURL.components(separatedBy: "#")
-        let anchor = separatedURL[separatedURL.count - 1]
-        return anchor
+    func queryValue(of queryParameterKey: String) -> String? {
+        guard let fragment = fragment else {
+            return nil
+        }
+        let fragmentDictionary = separateFragment(fragment)
+        return fragmentDictionary[queryParameterKey]
     }
 
-    private func separateAnchor(_ anchor: String) -> [String: String] {
+    private func separateFragment(_ anchor: String) -> [String: String] {
         var dict = [String: String]()
         let array = anchor.components(separatedBy: "&")
         array.forEach { keyValueString in
             let array = keyValueString.components(separatedBy: "=")
-            let keyValuePairsCount = array.count / 2
-            for i in 0...keyValuePairsCount - 1 {
-                dict[array[i]] = array[i + 1]
-            }
+            let dictKey = array[0]
+            let dictValue = array[1]
+            dict[dictKey] = dictValue
         }
         return dict
     }

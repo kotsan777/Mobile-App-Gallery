@@ -17,6 +17,7 @@ protocol PhotoModelProtocol {
     func getTitle()
     func getAlbum()
     func prepareShareViewController()
+    func handlePinchGesture(_ gesture: UIPinchGestureRecognizer)
 }
 
 class PhotoModel: NSObject, PhotoModelProtocol {
@@ -92,6 +93,31 @@ class PhotoModel: NSObject, PhotoModelProtocol {
             }
         }
         presenter.sendShareViewController(viewController: vc)
+    }
+
+    func handlePinchGesture(_ gesture: UIPinchGestureRecognizer) {
+        guard let gestureView = gesture.view else {
+            return
+        }
+        let location = gesture.location(in: gestureView)
+        switch gesture.state {
+        case .changed:
+            let pinchCenter = CGPoint(x: location.x - gestureView.bounds.midX,
+                                      y: location.y - gestureView.bounds.midY)
+            let transform = gestureView.transform.translatedBy(x: pinchCenter.x, y: pinchCenter.y)
+                                            .scaledBy(x: gesture.scale, y: gesture.scale)
+                                            .translatedBy(x: -pinchCenter.x, y: -pinchCenter.y)
+            gestureView.transform = transform
+            presenter.hideViewsExceptPhoto()
+            gesture.scale = 1
+        case .ended:
+            UIView.animate(withDuration: 0.5) {
+                gestureView.transform = CGAffineTransform.identity
+            }
+            presenter.showViews()
+        default:
+            break
+        }
     }
 }
 

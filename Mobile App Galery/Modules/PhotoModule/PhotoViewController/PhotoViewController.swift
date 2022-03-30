@@ -15,12 +15,15 @@ protocol PhotoViewControllerProtocol: UIViewController {
     func showAlertSuccessSave()
     func showAlertFailedSave()
     func updateCurrentPhoto()
+    func hideViewsExceptPhoto()
+    func showViews()
 }
 
 class PhotoViewController: UIViewController, PhotoViewControllerProtocol {
 
     var presenter: PhotoPresenterProtocol!
     let configurator = PhotoConfigurator()
+    var pinchGestureRecognizer: UIPinchGestureRecognizer!
 
     @IBOutlet weak var currentPhotoImageView: UIImageView!
     @IBOutlet weak var carouselCollectionView: UICollectionView!
@@ -35,6 +38,7 @@ class PhotoViewController: UIViewController, PhotoViewControllerProtocol {
         setupImage(for: currentPhotoImageView)
         getTitle()
         presenter.getAlbum()
+        setupGestureRecognizer()
     }
 
     override func viewSafeAreaInsetsDidChange() {
@@ -51,6 +55,10 @@ class PhotoViewController: UIViewController, PhotoViewControllerProtocol {
 
     @objc func shareButtonTapped() {
         presenter.prepareShareViewController()
+    }
+
+    @objc func handlePinchGesture(_ gesture: UIPinchGestureRecognizer) {
+        presenter.handlePinchGesture(gesture)
     }
 
     func setTitle(_ title: String) {
@@ -71,6 +79,26 @@ class PhotoViewController: UIViewController, PhotoViewControllerProtocol {
         }
         let image = UIImage(data: data)
         currentPhotoImageView.image = image
+    }
+
+    func showAlertSuccessSave() {
+        let alert = UIAlertController(config: .saveImageSuccess)
+        present(alert, animated: true)
+    }
+
+    func showAlertFailedSave() {
+        let alert = UIAlertController(config: .saveImageFailed)
+        present(alert, animated: true)
+    }
+
+    func hideViewsExceptPhoto() {
+        carouselCollectionView.isHidden = true
+        navigationController?.navigationBar.isHidden = true
+    }
+
+    func showViews() {
+        carouselCollectionView.isHidden = false
+        navigationController?.navigationBar.isHidden = false
     }
 
     private func setupCollectionViewDelegate(_ collectionView: UICollectionView) {
@@ -98,20 +126,15 @@ class PhotoViewController: UIViewController, PhotoViewControllerProtocol {
         presenter.getTitle()
     }
 
-    func setupViewController() {
+    private func setupViewController() {
         let button = UIBarButtonItem(config: .shareButtonItem)
         button.action = #selector(shareButtonTapped)
         button.target = self
         navigationItem.rightBarButtonItem = button
     }
 
-    func showAlertSuccessSave() {
-        let alert = UIAlertController(config: .saveImageSuccess)
-        present(alert, animated: true)
-    }
-
-    func showAlertFailedSave() {
-        let alert = UIAlertController(config: .saveImageFailed)
-        present(alert, animated: true)
+    private func setupGestureRecognizer() {
+        pinchGestureRecognizer = UIPinchGestureRecognizer(target: self, action: #selector(handlePinchGesture(_:)))
+        currentPhotoImageView.addGestureRecognizer(pinchGestureRecognizer)
     }
 }

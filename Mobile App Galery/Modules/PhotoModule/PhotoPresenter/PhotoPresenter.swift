@@ -22,6 +22,9 @@ protocol PhotoPresenterProtocol {
     func showAlertSuccessSave()
     func showAlertFailedSave()
     func updateCurrentPhoto()
+    func handlePinchGesture(_ gesture: UIPinchGestureRecognizer)
+    func hideViewsExceptPhoto()
+    func showViews()
 }
 
 class PhotoPresenter: PhotoPresenterProtocol {
@@ -87,5 +90,17 @@ class PhotoPresenter: PhotoPresenterProtocol {
 
     func updateCurrentPhoto() {
         view.updateCurrentPhoto()
+    }
+
+    func handlePinchGesture(_ gesture: UIPinchGestureRecognizer) {
+        model.handlePinchGesture(gesture)
+    }
+
+    func hideViewsExceptPhoto() {
+        view.hideViewsExceptPhoto()
+    }
+
+    func showViews() {
+        view.showViews()
     }
 }

@@ -242,6 +242,53 @@
 			path = Constants;
 			sourceTree = "<group>";
 		};
+		BE9687E527F641FA00433D84 /* JSONEntities */ = {
+			isa = PBXGroup;
+			children = (
+				BE5B087327EF55B4000DCE48 /* Token.swift */,
+				BED4A9CC27EF96D2003F847C /* DesignatedError.swift */,
+				BE0926D827F0ACDD0061E87E /* Album.swift */,
+			);
+			path = JSONEntities;
+			sourceTree = "<group>";
+		};
+		BE9687E627F6422700433D84 /* AuthEntities */ = {
+			isa = PBXGroup;
+			children = (
+				BEA3F8FD27F5D4DC00A74867 /* AuthWebKitDelegate.swift */,
+			);
+			path = AuthEntities;
+			sourceTree = "<group>";
+		};
+		BE9687E727F6424000433D84 /* GalleryEntities */ = {
+			isa = PBXGroup;
+			children = (
+				BE0926D327F078980061E87E /* GalleryCollectionViewCell */,
+				BEA3F8FF27F5DFE800A74867 /* GalleryCollectionViewDataSource.swift */,
+				BEA3F90127F5E24500A74867 /* GalleryCollectionViewDelegate.swift */,
+				BEA3F90327F5E4CE00A74867 /* GalleryCollectionViewDataSourcePrefetch.swift */,
+			);
+			path = GalleryEntities;
+			sourceTree = "<group>";
+		};
+		BE9687E827F6424D00433D84 /* PhotoEntities */ = {
+			isa = PBXGroup;
+			children = (
+				BEDDDEE127F26160008ECEBA /* PhotoCollectionViewCell */,
+				BEA3F90727F6161700A74867 /* PhotoCollectionDataSource.swift */,
+				BEA3F90927F6163400A74867 /* PhotoCollectionDelegate.swift */,
+			);
+			path = PhotoEntities;
+			sourceTree = "<group>";
+		};
+		BE9687E927F6425E00433D84 /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				BED4A9CA27EF5A77003F847C /* Storage.swift */,
+			);
+			path = Storage;
+			sourceTree = "<group>";
+		};
 		BEC0CD4427EE5D1B000331A0 /* WelcomeViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -373,19 +420,12 @@
 		BED8043527EE511B007A08F6 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
-				BEDDDEE127F26160008ECEBA /* PhotoCollectionViewCell */,
-				BE0926D327F078980061E87E /* GalleryCollectionViewCell */,
 				BE5B087227EF55A1000DCE48 /* Network */,
-				BE5B087327EF55B4000DCE48 /* Token.swift */,
-				BED4A9CA27EF5A77003F847C /* Storage.swift */,
-				BED4A9CC27EF96D2003F847C /* DesignatedError.swift */,
-				BE0926D827F0ACDD0061E87E /* Album.swift */,
-				BEA3F8FD27F5D4DC00A74867 /* AuthWebKitDelegate.swift */,
-				BEA3F8FF27F5DFE800A74867 /* GalleryCollectionViewDataSource.swift */,
-				BEA3F90127F5E24500A74867 /* GalleryCollectionViewDelegate.swift */,
-				BEA3F90327F5E4CE00A74867 /* GalleryCollectionViewDataSourcePrefetch.swift */,
-				BEA3F90727F6161700A74867 /* PhotoCollectionDataSource.swift */,
-				BEA3F90927F6163400A74867 /* PhotoCollectionDelegate.swift */,
+				BE9687E527F641FA00433D84 /* JSONEntities */,
+				BE9687E927F6425E00433D84 /* Storage */,
+				BE9687E627F6422700433D84 /* AuthEntities */,
+				BE9687E727F6424000433D84 /* GalleryEntities */,
+				BE9687E827F6424D00433D84 /* PhotoEntities */,
 			);
 			path = Entities;
 			sourceTree = "<group>";

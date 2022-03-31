@@ -9,33 +9,29 @@ import UIKit
 import SDWebImage
 
 protocol PhotoModelProtocol {
+    func registerCell(for collectionView: UICollectionView)
     func setupCollectionViewDelegate(_ collectionView: UICollectionView)
     func setupCollectionViewDataSource(_ collectionView: UICollectionView)
-    func registerCell(for collectionView: UICollectionView)
-    func updateCollectionViewLayout(layout: UICollectionViewFlowLayout)
-    func setupImage(for imageView: UIImageView)
-    func getTitle()
+    func updateCollectionViewLayout(layout: UICollectionViewLayout)
     func getAlbum()
-    func prepareShareViewController()
+    func setupImage(for imageView: UIImageView)
+    func updateTitle()
+    func getShareViewController()
     func handlePinchGesture(_ gesture: UIPinchGestureRecognizer)
     func removePhotoRecords()
+    func photoSelected()
 }
 
 class PhotoModel: NSObject, PhotoModelProtocol {
 
     let presenter: PhotoPresenterProtocol
     var album: Album?
+    var delegate: PhotoCollectionDelegateProtocol!
+    var dataSource: PhotoCollectionDataSourceProtocol
 
-    init(presenter: PhotoPresenterProtocol) {
+    init(presenter: PhotoPresenterProtocol, dataSource: PhotoCollectionDataSourceProtocol) {
         self.presenter = presenter
-    }
-
-    func setupCollectionViewDelegate(_ collectionView: UICollectionView) {
-        collectionView.delegate = self
-    }
-
-    func setupCollectionViewDataSource(_ collectionView: UICollectionView) {
-        collectionView.dataSource = self
+        self.dataSource = dataSource
     }
 
     func registerCell(for collectionView: UICollectionView) {
@@ -43,9 +39,28 @@ class PhotoModel: NSObject, PhotoModelProtocol {
         collectionView.register(nib, forCellWithReuseIdentifier: PhotoCollectionViewCell.reuseIdentifier)
     }
 
-    func updateCollectionViewLayout(layout: UICollectionViewFlowLayout) {
-        layout.itemSize = CGSize(width: PhotoFlowLayoutConstants.sideSize, height: PhotoFlowLayoutConstants.sideSize)
+    func setupCollectionViewDelegate(_ collectionView: UICollectionView) {
+        collectionView.delegate = delegate
+    }
+
+    func setupCollectionViewDataSource(_ collectionView: UICollectionView) {
+        collectionView.dataSource = dataSource
+    }
+
+    func updateCollectionViewLayout(layout: UICollectionViewLayout) {
+        guard let layout = layout as? UICollectionViewFlowLayout else {
+            return
+        }
+        let sideSize = PhotoFlowLayoutConstants.sideSize
+        layout.itemSize = CGSize(width: sideSize, height: sideSize)
         layout.minimumLineSpacing = PhotoFlowLayoutConstants.minimumLineSpacing
+    }
+
+    func getAlbum() {
+        let album = UserDefaultsStorage.getAlbum()
+        dataSource.album = album
+        delegate.album = album
+        presenter.reloadData()
     }
 
     func setupImage(for imageView: UIImageView) {
@@ -57,7 +72,7 @@ class PhotoModel: NSObject, PhotoModelProtocol {
         imageView.sd_setImage(with: url, completed: nil)
     }
 
-    func getTitle() {
+    func updateTitle() {
         guard let item = UserDefaultsStorage.getCurrentItem() else {
             return
         }
@@ -69,16 +84,10 @@ class PhotoModel: NSObject, PhotoModelProtocol {
         let date = Date(timeIntervalSince1970: Double(unixDate))
         let rawDateString = dateFormatter.string(from: date)
         let resultString = String(rawDateString.dropLast(3))
-        presenter.setTitle(resultString)
+        presenter.showCurrentTitle(title: resultString)
     }
 
-    func getAlbum() {
-        let album = UserDefaultsStorage.getAlbum()
-        self.album = album
-        presenter.reloadData()
-    }
-
-    func prepareShareViewController() {
+    func getShareViewController() {
         guard let currentPhotoImageData = UserDefaultsStorage.getCurrentPhotoData(),
               let image = UIImage(data: currentPhotoImageData) else {
             return
@@ -93,7 +102,7 @@ class PhotoModel: NSObject, PhotoModelProtocol {
                 (error == nil) ? self.presenter.showAlertSuccessSave() : self.presenter.showAlertFailedSave()
             }
         }
-        presenter.sendShareViewController(viewController: vc)
+        presenter.presentShareViewController(viewController: vc)
     }
 
     func handlePinchGesture(_ gesture: UIPinchGestureRecognizer) {
@@ -122,43 +131,17 @@ class PhotoModel: NSObject, PhotoModelProtocol {
         }
     }
 
+    func photoSelected() {
+        guard let data = UserDefaultsStorage.getCurrentPhotoData(),
+              let image = UIImage(data: data) else {
+            return
+        }
+        presenter.updateCurrentPhoto(with: image)
+        updateTitle()
+    }
+
     func removePhotoRecords() {
         UserDefaultsStorage.deleteCurrentPhotoData()
         UserDefaultsStorage.deleteCurrentItem()
-    }
-}
-
-extension PhotoModel: UICollectionViewDelegate, UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let album = album else {
-            return 0
-        }
-        return album.response.count
-    }
-
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCollectionViewCell.reuseIdentifier, for: indexPath) as? PhotoCollectionViewCell else {
-            return UICollectionViewCell()
-        }
-        guard let urlString = album?.response.items[indexPath.row][.w]?.url,
-              let url = URL(string: urlString) else {
-            return UICollectionViewCell()
-        }
-        cell.cellImageView.sd_imageIndicator = SDWebImageActivityIndicator.gray
-        cell.cellImageView.sd_imageIndicator = SDWebImageProgressIndicator.default
-        cell.cellImageView.sd_setImage(with: url, completed: nil)
-        return cell
-    }
-
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let cell = collectionView.cellForItem(at: indexPath) as? PhotoCollectionViewCell,
-              let data = cell.cellImageView.image?.sd_imageData(),
-              let item = album?.response.items[indexPath.row] else {
-            return
-        }
-        UserDefaultsStorage.updateCurrentPhotoData(data: data)
-        UserDefaultsStorage.updateCurrentItem(item: item)
-        presenter.updateCurrentPhoto()
-        getTitle()
     }
 }

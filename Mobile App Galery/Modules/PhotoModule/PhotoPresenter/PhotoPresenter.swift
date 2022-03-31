@@ -8,20 +8,20 @@
 import UIKit
 
 protocol PhotoPresenterProtocol {
+    func registerCell(for collectionView: UICollectionView)
     func setupCollectionViewDelegate(_ collectionView: UICollectionView)
     func setupCollectionViewDataSource(_ collectionView: UICollectionView)
-    func registerCell(for collectionView: UICollectionView)
-    func updateCollectionViewLayout(layout: UICollectionViewFlowLayout)
-    func setupImage(for imageView: UIImageView)
-    func getTitle()
-    func setTitle(_ title: String)
+    func updateCollectionViewLayout(layout: UICollectionViewLayout)
     func getAlbum()
     func reloadData()
-    func prepareShareViewController()
-    func sendShareViewController(viewController: UIActivityViewController)
+    func updateTitle()
+    func showCurrentTitle(title: String)
+    func setupImage(for imageView: UIImageView)
+    func updateCurrentPhoto(with image: UIImage)
+    func getShareViewController()
+    func presentShareViewController(viewController: UIViewController)
     func showAlertSuccessSave()
     func showAlertFailedSave()
-    func updateCurrentPhoto()
     func handlePinchGesture(_ gesture: UIPinchGestureRecognizer)
     func hideViewsExceptPhoto()
     func showViews()
@@ -37,6 +37,10 @@ class PhotoPresenter: PhotoPresenterProtocol {
         self.view = view
     }
 
+    func registerCell(for collectionView: UICollectionView) {
+        model.registerCell(for: collectionView)
+    }
+
     func setupCollectionViewDelegate(_ collectionView: UICollectionView) {
         model.setupCollectionViewDelegate(collectionView)
     }
@@ -45,24 +49,8 @@ class PhotoPresenter: PhotoPresenterProtocol {
         model.setupCollectionViewDataSource(collectionView)
     }
 
-    func registerCell(for collectionView: UICollectionView) {
-        model.registerCell(for: collectionView)
-    }
-
-    func updateCollectionViewLayout(layout: UICollectionViewFlowLayout) {
+    func updateCollectionViewLayout(layout: UICollectionViewLayout) {
         model.updateCollectionViewLayout(layout: layout)
-    }
-
-    func setupImage(for imageView: UIImageView) {
-        model.setupImage(for: imageView)
-    }
-
-    func getTitle() {
-        model.getTitle()
-    }
-
-    func setTitle(_ title: String) {
-        view.setTitle(title)
     }
 
     func getAlbum() {
@@ -73,11 +61,27 @@ class PhotoPresenter: PhotoPresenterProtocol {
         view.reloadData()
     }
 
-    func prepareShareViewController() {
-        model.prepareShareViewController()
+    func updateTitle() {
+        model.updateTitle()
     }
 
-    func sendShareViewController(viewController: UIActivityViewController) {
+    func showCurrentTitle(title: String) {
+        view.showCurrentTitle(title: title)
+    }
+
+    func setupImage(for imageView: UIImageView) {
+        model.setupImage(for: imageView)
+    }
+
+    func updateCurrentPhoto(with image: UIImage) {
+        view.updateCurrentPhoto(with: image)
+    }
+
+    func getShareViewController() {
+        model.getShareViewController()
+    }
+
+    func presentShareViewController(viewController: UIViewController) {
         view.presentShareViewController(viewController: viewController)
     }
 
@@ -87,10 +91,6 @@ class PhotoPresenter: PhotoPresenterProtocol {
 
     func showAlertFailedSave() {
         view.showAlertFailedSave()
-    }
-
-    func updateCurrentPhoto() {
-        view.updateCurrentPhoto()
     }
 
     func handlePinchGesture(_ gesture: UIPinchGestureRecognizer) {

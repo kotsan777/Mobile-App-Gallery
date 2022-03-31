@@ -14,8 +14,11 @@ protocol PhotoConfiguratorProtocol {
 class PhotoConfigurator: PhotoConfiguratorProtocol {
     func configure(view: PhotoViewControllerProtocol) {
         let presenter = PhotoPresenter(view: view)
-        let model = PhotoModel(presenter: presenter)
+        let dataSource = PhotoCollectionDataSource()
+        let model = PhotoModel(presenter: presenter, dataSource: dataSource)
+        let photoDelegate = PhotoCollectionDelegate(model: model)
         view.presenter = presenter
         presenter.model = model
+        model.delegate = photoDelegate
     }
 }

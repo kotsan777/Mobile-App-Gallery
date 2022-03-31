@@ -9,14 +9,14 @@ import UIKit
 
 protocol PhotoViewControllerProtocol: UIViewController {
     var presenter: PhotoPresenterProtocol! {get set}
-    func setTitle(_ title: String)
     func reloadData()
-    func presentShareViewController(viewController: UIActivityViewController)
+    func updateCurrentPhoto(with image: UIImage)
+    func showCurrentTitle(title: String)
+    func showViews()
+    func hideViewsExceptPhoto()
+    func presentShareViewController(viewController: UIViewController)
     func showAlertSuccessSave()
     func showAlertFailedSave()
-    func updateCurrentPhoto()
-    func hideViewsExceptPhoto()
-    func showViews()
 }
 
 class PhotoViewController: UIViewController, PhotoViewControllerProtocol {
@@ -31,21 +31,18 @@ class PhotoViewController: UIViewController, PhotoViewControllerProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         configurator.configure(view: self)
-        setupNavigaeionBarItems()
+        registerCell(for: carouselCollectionView)
+        setupNavigationBarItems()
         setupCollectionViewDelegate(carouselCollectionView)
         setupCollectionViewDataSource(carouselCollectionView)
-        registerCell(for: carouselCollectionView)
         setupImage(for: currentPhotoImageView)
-        getTitle()
-        presenter.getAlbum()
         setupGestureRecognizer()
+        presenter.getAlbum()
+        updateTitle()
     }
 
     override func viewSafeAreaInsetsDidChange() {
-        guard let collectionViewLayout = carouselCollectionView.collectionViewLayout as? UICollectionViewFlowLayout else {
-            return
-        }
-        presenter.updateCollectionViewLayout(layout: collectionViewLayout)
+        presenter.updateCollectionViewLayout(layout: carouselCollectionView.collectionViewLayout)
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -54,31 +51,43 @@ class PhotoViewController: UIViewController, PhotoViewControllerProtocol {
     }
 
     @objc func shareButtonTapped() {
-        presenter.prepareShareViewController()
+        presenter.getShareViewController()
     }
 
     @objc func handlePinchGesture(_ gesture: UIPinchGestureRecognizer) {
         presenter.handlePinchGesture(gesture)
     }
 
-    func setTitle(_ title: String) {
-        self.title = title
-    }
-
     func reloadData() {
         carouselCollectionView.reloadData()
     }
 
-    func presentShareViewController(viewController: UIActivityViewController) {
-        present(viewController, animated: true)
+    func updateCurrentPhoto(with image: UIImage) {
+        currentPhotoImageView.image = image
     }
 
-    func updateCurrentPhoto() {
-        guard let data = UserDefaultsStorage.getCurrentPhotoData() else {
-            return
+    func showCurrentTitle(title: String) {
+        self.title = title
+    }
+
+    func showViews() {
+        UIView.animate(withDuration: 0.5) { [weak self] in
+            guard let self = self else { return }
+            self.carouselCollectionView.layer.opacity = 1
+            self.navigationController?.navigationBar.layer.opacity = 1
         }
-        let image = UIImage(data: data)
-        currentPhotoImageView.image = image
+    }
+
+    func hideViewsExceptPhoto() {
+        UIView.animate(withDuration: 0.5) { [weak self] in
+            guard let self = self else { return }
+            self.carouselCollectionView.layer.opacity = 0
+            self.navigationController?.navigationBar.layer.opacity = 0
+        }
+    }
+
+    func presentShareViewController(viewController: UIViewController) {
+        present(viewController, animated: true)
     }
 
     func showAlertSuccessSave() {
@@ -93,18 +102,8 @@ class PhotoViewController: UIViewController, PhotoViewControllerProtocol {
         present(alert, animated: true)
     }
 
-    func hideViewsExceptPhoto() {
-        UIView.animate(withDuration: 0.5) {
-            self.carouselCollectionView.layer.opacity = 0
-            self.navigationController?.navigationBar.layer.opacity = 0
-        }
-    }
-
-    func showViews() {
-        UIView.animate(withDuration: 0.5) {
-            self.carouselCollectionView.layer.opacity = 1
-            self.navigationController?.navigationBar.layer.opacity = 1
-        }
+    private func registerCell(for collectionView: UICollectionView) {
+        presenter.registerCell(for: collectionView)
     }
 
     private func setupCollectionViewDelegate(_ collectionView: UICollectionView) {
@@ -115,24 +114,15 @@ class PhotoViewController: UIViewController, PhotoViewControllerProtocol {
         presenter.setupCollectionViewDataSource(collectionView)
     }
 
-    private func registerCell(for collectionView: UICollectionView) {
-        presenter.registerCell(for: collectionView)
+    private func updateTitle() {
+        presenter.updateTitle()
     }
 
     private func setupImage(for imageView: UIImageView) {
-        guard let data = UserDefaultsStorage.getCurrentPhotoData() else {
-            return
-        }
-        let image = UIImage(data: data)
-        imageView.image = image
         presenter.setupImage(for: imageView)
     }
 
-    private func getTitle() {
-        presenter.getTitle()
-    }
-
-    private func setupNavigaeionBarItems() {
+    private func setupNavigationBarItems() {
         let button = UIBarButtonItem(config: .shareButtonItem)
         button.action = #selector(shareButtonTapped)
         button.target = self

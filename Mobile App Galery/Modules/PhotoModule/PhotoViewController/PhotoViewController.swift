@@ -31,7 +31,7 @@ class PhotoViewController: UIViewController, PhotoViewControllerProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         configurator.configure(view: self)
-        setupViewController()
+        setupNavigaeionBarItems()
         setupCollectionViewDelegate(carouselCollectionView)
         setupCollectionViewDataSource(carouselCollectionView)
         registerCell(for: carouselCollectionView)
@@ -132,7 +132,7 @@ class PhotoViewController: UIViewController, PhotoViewControllerProtocol {
         presenter.getTitle()
     }
 
-    private func setupViewController() {
+    private func setupNavigaeionBarItems() {
         let button = UIBarButtonItem(config: .shareButtonItem)
         button.action = #selector(shareButtonTapped)
         button.target = self

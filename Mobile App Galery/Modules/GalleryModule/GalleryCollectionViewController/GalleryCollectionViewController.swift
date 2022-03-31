@@ -32,11 +32,6 @@ class GalleryCollectionViewController: UICollectionViewController, GalleryCollec
         fetchAlbumData()
     }
 
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        presenter.removeAuthRecords()
-    }
-
     override func viewSafeAreaInsetsDidChange() {
         guard let collectionViewLayout = collectionViewLayout as? UICollectionViewFlowLayout else {
             return
@@ -84,6 +79,7 @@ class GalleryCollectionViewController: UICollectionViewController, GalleryCollec
 
     @objc func exit() {
         navigationController?.popViewController(animated: true)
+        presenter.removeAuthRecords()
     }
 
     private func registerCell(for collectionView: UICollectionView) {

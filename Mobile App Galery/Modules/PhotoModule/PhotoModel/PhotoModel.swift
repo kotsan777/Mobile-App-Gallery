@@ -146,10 +146,13 @@ extension PhotoModel: UICollectionViewDelegate, UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? PhotoCollectionViewCell,
-              let data = cell.cellImageView.image?.sd_imageData() else {
+              let data = cell.cellImageView.image?.sd_imageData(),
+              let item = album?.response.items[indexPath.row] else {
             return
         }
         UserDefaultsStorage.saveCurrentPhotoData(data: data)
+        UserDefaultsStorage.saveCurrentItem(item: item)
         presenter.updateCurrentPhoto()
+        getTitle()
     }
 }

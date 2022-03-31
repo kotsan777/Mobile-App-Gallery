@@ -21,6 +21,7 @@ protocol GalleryPresenterProtocol: AnyObject {
     func showAlertUnknownError()
     func showPhotoViewController(_ photoViewController: PhotoViewControllerProtocol)
     func removeAuthRecords()
+    func removeAlbumRecords()
 }
 
 class GalleryPresenter: GalleryPresenterProtocol {
@@ -82,5 +83,9 @@ class GalleryPresenter: GalleryPresenterProtocol {
 
     func removeAuthRecords() {
         model.removeAuthRecords()
+    }
+
+    func removeAlbumRecords() {
+        model.removeAlbumRecords()
     }
 }

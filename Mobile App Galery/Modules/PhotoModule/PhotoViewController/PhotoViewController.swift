@@ -48,9 +48,9 @@ class PhotoViewController: UIViewController, PhotoViewControllerProtocol {
         presenter.updateCollectionViewLayout(layout: collectionViewLayout)
     }
 
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        UserDefaultsStorage.deleteCurrentItem()
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        presenter.removePhotoRecords()
     }
 
     @objc func shareButtonTapped() {

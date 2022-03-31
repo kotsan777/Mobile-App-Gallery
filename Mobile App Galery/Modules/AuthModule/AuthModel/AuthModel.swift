@@ -42,8 +42,8 @@ class AuthModel: NSObject, AuthModelProtocol {
             return
         }
         let token = Token(accessToken: accessToken, expiresIn: expriresIn, userID: userId)
-        UserDefaultsStorage.saveToken(token: token)
-        UserDefaultsStorage.setIsTokenActual(with: true)
+        UserDefaultsStorage.updateToken(token: token)
+        UserDefaultsStorage.updateIsTokenActual(with: true)
         presenter.tokenReceived()
     }
 }

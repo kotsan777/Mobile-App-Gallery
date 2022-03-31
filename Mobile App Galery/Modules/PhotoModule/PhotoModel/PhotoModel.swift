@@ -18,6 +18,7 @@ protocol PhotoModelProtocol {
     func getAlbum()
     func prepareShareViewController()
     func handlePinchGesture(_ gesture: UIPinchGestureRecognizer)
+    func removePhotoRecords()
 }
 
 class PhotoModel: NSObject, PhotoModelProtocol {
@@ -120,6 +121,11 @@ class PhotoModel: NSObject, PhotoModelProtocol {
             break
         }
     }
+
+    func removePhotoRecords() {
+        UserDefaultsStorage.deleteCurrentPhotoData()
+        UserDefaultsStorage.deleteCurrentItem()
+    }
 }
 
 extension PhotoModel: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -150,8 +156,8 @@ extension PhotoModel: UICollectionViewDelegate, UICollectionViewDataSource {
               let item = album?.response.items[indexPath.row] else {
             return
         }
-        UserDefaultsStorage.saveCurrentPhotoData(data: data)
-        UserDefaultsStorage.saveCurrentItem(item: item)
+        UserDefaultsStorage.updateCurrentPhotoData(data: data)
+        UserDefaultsStorage.updateCurrentItem(item: item)
         presenter.updateCurrentPhoto()
         getTitle()
     }

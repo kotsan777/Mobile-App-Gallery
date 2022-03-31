@@ -25,6 +25,7 @@ protocol PhotoPresenterProtocol {
     func handlePinchGesture(_ gesture: UIPinchGestureRecognizer)
     func hideViewsExceptPhoto()
     func showViews()
+    func removePhotoRecords()
 }
 
 class PhotoPresenter: PhotoPresenterProtocol {
@@ -102,5 +103,9 @@ class PhotoPresenter: PhotoPresenterProtocol {
 
     func showViews() {
         view.showViews()
+    }
+
+    func removePhotoRecords() {
+        model.removePhotoRecords()
     }
 }

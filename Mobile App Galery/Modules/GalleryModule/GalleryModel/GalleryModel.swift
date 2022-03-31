@@ -17,6 +17,7 @@ protocol GalleryModelProtocol {
     func updateCollectionViewLayout(layout: UICollectionViewFlowLayout, with safeAreaLayoutGuide: UILayoutGuide)
     func fetchAlbumData()
     func removeAuthRecords()
+    func removeAlbumRecords()
 }
 
 class GalleryModel: NSObject, GalleryModelProtocol {
@@ -72,7 +73,7 @@ class GalleryModel: NSObject, GalleryModelProtocol {
             switch result {
             case .success(let album):
                 self.album = album
-                UserDefaultsStorage.saveAlbumData(album: album)
+                UserDefaultsStorage.updateAlbumData(album: album)
                 self.presenter.reloadCollectionView()
             case .failure(let error):
                 self.handleGetAlbumError(error: error)
@@ -87,7 +88,11 @@ class GalleryModel: NSObject, GalleryModelProtocol {
             }
         }
         UserDefaultsStorage.deleteCurrentToken()
-        UserDefaultsStorage.setIsTokenActual(with: false)
+        UserDefaultsStorage.updateIsTokenActual(with: false)
+    }
+
+    func removeAlbumRecords() {
+        UserDefaultsStorage.deleteAlbum()
     }
 
     private func handleGetAlbumError(error: GetAlbumError) {
@@ -153,8 +158,8 @@ extension GalleryModel: UICollectionViewDelegate, UICollectionViewDataSource, UI
               let currentImageData = cell.imageView.image?.sd_imageData() else {
             return
         }
-        UserDefaultsStorage.saveCurrentPhotoData(data: currentImageData)
-        UserDefaultsStorage.saveCurrentItem(item: currentItem)
+        UserDefaultsStorage.updateCurrentPhotoData(data: currentImageData)
+        UserDefaultsStorage.updateCurrentItem(item: currentItem)
         let photoViewController = PhotoViewController(nibName: NibNames.photoViewController, bundle: nil)
         presenter.showPhotoViewController(photoViewController)
     }

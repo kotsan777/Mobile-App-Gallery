@@ -39,6 +39,12 @@ class GalleryCollectionViewController: UICollectionViewController, GalleryCollec
         presenter.updateCollectionViewLayout(layout: collectionViewLayout, with: view.safeAreaLayoutGuide)
     }
 
+    @objc func exit() {
+        navigationController?.popViewController(animated: true)
+        presenter.removeAuthRecords()
+        presenter.removeAlbumRecords()
+    }
+
     func reloadCollectionView() {
         collectionView.reloadData()
     }
@@ -75,11 +81,6 @@ class GalleryCollectionViewController: UICollectionViewController, GalleryCollec
 
     func showPhotoViewController(_ photoViewController: PhotoViewControllerProtocol) {
         navigationController?.pushViewController(photoViewController, animated: true)
-    }
-
-    @objc func exit() {
-        navigationController?.popViewController(animated: true)
-        presenter.removeAuthRecords()
     }
 
     private func registerCell(for collectionView: UICollectionView) {

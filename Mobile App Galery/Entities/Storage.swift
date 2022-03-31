@@ -18,17 +18,12 @@ class UserDefaultsStorage {
         static let albumData = "albumData"
     }
 
-    static func saveToken(token: Token) {
+    static func updateToken(token: Token) {
         guard let token = try? JSONEncoder().encode(token) else {
             return
         }
         let key = UserDefaultsStorageKeys.token
         UserDefaults.standard.set(token, forKey: key)
-    }
-
-    static func deleteCurrentToken() {
-        let key = UserDefaultsStorageKeys.token
-        UserDefaults.standard.set(nil, forKey: key)
     }
 
     static func getToken() -> Token? {
@@ -39,7 +34,11 @@ class UserDefaultsStorage {
         return token
     }
 
-    static func setIsTokenActual(with bool: Bool) {
+    static func deleteCurrentToken() {
+        UserDefaults.standard.removeObject(forKey: UserDefaultsStorageKeys.token)
+    }
+
+    static func updateIsTokenActual(with bool: Bool) {
         UserDefaults.standard.set(bool, forKey: UserDefaultsStorageKeys.isTokenActual)
     }
 
@@ -47,22 +46,15 @@ class UserDefaultsStorage {
         return UserDefaults.standard.bool(forKey: UserDefaultsStorageKeys.isTokenActual)
     }
 
-    static func saveCurrentItem(item: Item) {
+    static func deleteIsTokenActual() {
+        UserDefaults.standard.removeObject(forKey: UserDefaultsStorageKeys.isTokenActual)
+    }
+
+    static func updateCurrentItem(item: Item) {
         guard let itemData = try? JSONEncoder().encode(item) else {
             return
         }
         UserDefaults.standard.set(itemData, forKey: UserDefaultsStorageKeys.currentItem)
-    }
-
-    static func saveCurrentPhotoData(data: Data) {
-        UserDefaults.standard.set(data, forKey: UserDefaultsStorageKeys.currentPhotoData)
-    }
-
-    static func getCurrentPhotoData() -> Data? {
-        guard let data = UserDefaults.standard.data(forKey: UserDefaultsStorageKeys.currentPhotoData) else{
-            return nil
-        }
-        return data
     }
 
     static func getCurrentItem() -> Item? {
@@ -74,10 +66,25 @@ class UserDefaultsStorage {
     }
 
     static func deleteCurrentItem() {
-        UserDefaults.standard.set(nil, forKey: UserDefaultsStorageKeys.currentItem)
+        UserDefaults.standard.removeObject(forKey: UserDefaultsStorageKeys.currentItem)
     }
 
-    static func saveAlbumData(album: Album?) {
+    static func updateCurrentPhotoData(data: Data) {
+        UserDefaults.standard.set(data, forKey: UserDefaultsStorageKeys.currentPhotoData)
+    }
+
+    static func getCurrentPhotoData() -> Data? {
+        guard let data = UserDefaults.standard.data(forKey: UserDefaultsStorageKeys.currentPhotoData) else {
+            return nil
+        }
+        return data
+    }
+
+    static func deleteCurrentPhotoData() {
+        UserDefaults.standard.removeObject(forKey: UserDefaultsStorageKeys.currentPhotoData)
+    }
+
+    static func updateAlbumData(album: Album?) {
         guard let album = album, let data = try? JSONEncoder().encode(album) else {
             return
         }
@@ -93,6 +100,6 @@ class UserDefaultsStorage {
     }
 
     static func deleteAlbum() {
-        UserDefaults.standard.set(nil, forKey: UserDefaultsStorageKeys.albumData)
+        UserDefaults.standard.removeObject(forKey: UserDefaultsStorageKeys.albumData)
     }
 }

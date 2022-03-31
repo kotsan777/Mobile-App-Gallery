@@ -8,9 +8,7 @@
 import UIKit
 
 protocol WelcomeViewControllerProtocol: UIViewController {
-    func showAuthWebView(with vc: UIViewController)
     func authSucceeded()
-    func showGalleryViewController(_ galleryVC: UIViewController)
 }
 
 class WelcomeViewController: UIViewController, WelcomeViewControllerProtocol {
@@ -22,33 +20,17 @@ class WelcomeViewController: UIViewController, WelcomeViewControllerProtocol {
     @IBOutlet weak var authButton: UIButton!
 
     @IBAction func authButtonTapped() {
-        presenter.authButtonTapped()
+        let vc = AuthViewController(nibName: NibNames.authViewController, bundle: nil)
+        present(vc, animated: true)
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         configurator.configure(view: self)
-        setupButton(button: authButton)
-        setupLabel(label: label)
-    }
-
-    func showAuthWebView(with vc: UIViewController) {
-        present(vc, animated: true, completion: nil)
     }
 
     func authSucceeded() {
-        presenter.generateGalleryViewController()
-    }
-
-    func showGalleryViewController(_ galleryVC: UIViewController) {
-        navigationController?.pushViewController(galleryVC, animated: false)
-    }
-
-    private func setupButton(button: UIView) {
-        button.layer.cornerRadius = 8
-    }
-
-    private func setupLabel(label: UILabel) {
-        label.text = "Mobile Up \nGallery"
+        let vc = GalleryCollectionViewController(nibName: NibNames.galleryCollectionViewController, bundle: nil)
+        navigationController?.pushViewController(vc, animated: true)
     }
 }

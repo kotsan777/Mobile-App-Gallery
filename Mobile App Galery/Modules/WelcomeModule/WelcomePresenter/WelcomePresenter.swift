@@ -8,10 +8,7 @@
 import UIKit
 
 protocol WelcomePresenterProtocol {
-    func authButtonTapped()
-    func showAuthWebView(with vc: UIViewController)
-    func generateGalleryViewController()
-    func showGalleryViewController(_ galleryVC: UIViewController)
+
 }
 
 class WelcomePresenter: WelcomePresenterProtocol {
@@ -21,21 +18,5 @@ class WelcomePresenter: WelcomePresenterProtocol {
 
     init(view: WelcomeViewControllerProtocol) {
         self.view = view
-    }
-
-    func authButtonTapped() {
-        model.showAuthWebView()
-    }
-
-    func showAuthWebView(with vc: UIViewController) {
-        view.showAuthWebView(with: vc)
-    }
-
-    func generateGalleryViewController() {
-        model.generateGalleryViewController()
-    }
-
-    func showGalleryViewController(_ galleryVC: UIViewController) {
-        view.showGalleryViewController(galleryVC)
     }
 }

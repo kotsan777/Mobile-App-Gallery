@@ -6,11 +6,9 @@
 //
 
 import UIKit
-import WebKit
 
 protocol WelcomeModelProtocol {
-    func showAuthWebView()
-    func generateGalleryViewController()
+    
 }
 
 class WelcomeModel: WelcomeModelProtocol {
@@ -19,15 +17,5 @@ class WelcomeModel: WelcomeModelProtocol {
 
     init(presenter: WelcomePresenterProtocol) {
         self.presenter = presenter
-    }
-
-    func showAuthWebView() {
-        let vc = AuthViewController(nibName: NibNames.authViewController, bundle: nil)
-        presenter.showAuthWebView(with: vc)
-    }
-
-    func generateGalleryViewController() {
-        let vc = GalleryCollectionViewController(nibName: NibNames.galleryCollectionViewController, bundle: nil)
-        presenter.showGalleryViewController(vc)
     }
 }

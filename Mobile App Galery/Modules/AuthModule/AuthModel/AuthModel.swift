@@ -8,57 +8,38 @@
 import UIKit
 import WebKit
 
-protocol AuthModelProtocol {
+protocol AuthModelProtocol: AnyObject {
     func setupDelegate(to webView: WKWebView)
-    func setupWebView(_ webView: WKWebView)
+    func updateWebViewPage(_ webView: WKWebView)
+    func tokenReceived()
+    func showAlertError(error: Error)
 }
 
-class AuthModel: NSObject, AuthModelProtocol {
+class AuthModel: AuthModelProtocol {
 
     let presenter: AuthPresenterProtocol
+    var authWebKitDelegate: AuthWebKitDelegateProtocol!
 
     init(presenter: AuthPresenterProtocol) {
         self.presenter = presenter
     }
 
     func setupDelegate(to webView: WKWebView) {
-        webView.navigationDelegate = self
+        webView.navigationDelegate = authWebKitDelegate
     }
 
-    func setupWebView(_ webView: WKWebView) {
+    func updateWebViewPage(_ webView: WKWebView) {
         guard let request = RequestBuilder.getAuthRequest() else {
             return
         }
         webView.load(request)
     }
 
-    private func getToken(with url: URL) {
-        guard let accessToken = url.queryValue(of: URL.QueryParameterType.accessToken),
-              let expriresIn = url.queryValue(of: URL.QueryParameterType.expiresIn),
-              let userId = url.queryValue(of: URL.QueryParameterType.userId) else {
-            return
-        }
-        guard let expriresIn = Int(expriresIn), let userId = Int(userId) else {
-            return
-        }
-        let token = Token(accessToken: accessToken, expiresIn: expriresIn, userID: userId)
-        UserDefaultsStorage.updateToken(token: token)
-        UserDefaultsStorage.updateIsTokenActual(with: true)
+    func tokenReceived() {
         presenter.tokenReceived()
     }
-}
 
-extension AuthModel: WKNavigationDelegate {
-
-    func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+    func showAlertError(error: Error) {
         presenter.showAlertError(error: error)
-    }
-
-    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
-        guard let url = webView.url, let fragment = url.fragment else {
-            return
-        }
-        let isFragmentContainToken = fragment.contains(URL.QueryParameterType.accessToken)
-        isFragmentContainToken ? (getToken(with: url)) : nil
     }
 }

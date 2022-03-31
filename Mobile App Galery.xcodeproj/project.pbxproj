@@ -28,6 +28,7 @@
 		BE5B087127EF4C07000DCE48 /* URLExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5B087027EF4C07000DCE48 /* URLExtension.swift */; };
 		BE5B087427EF55B4000DCE48 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5B087327EF55B4000DCE48 /* Token.swift */; };
 		BEA3F8F827F4D54000A74867 /* UIAlertActionConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA3F8F727F4D54000A74867 /* UIAlertActionConfiguration.swift */; };
+		BEA3F8FE27F5D4DC00A74867 /* AuthWebKitDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA3F8FD27F5D4DC00A74867 /* AuthWebKitDelegate.swift */; };
 		BEC0CD4927EE5DAD000331A0 /* WelcomePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC0CD4827EE5DAD000331A0 /* WelcomePresenter.swift */; };
 		BEC0CD4C27EE5E40000331A0 /* WelcomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC0CD4B27EE5E40000331A0 /* WelcomeModel.swift */; };
 		BEC0CD4F27EE5F15000331A0 /* WelcomeConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC0CD4E27EE5F15000331A0 /* WelcomeConfigurator.swift */; };
@@ -75,6 +76,7 @@
 		BE5B087027EF4C07000DCE48 /* URLExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLExtension.swift; sourceTree = "<group>"; };
 		BE5B087327EF55B4000DCE48 /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		BEA3F8F727F4D54000A74867 /* UIAlertActionConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlertActionConfiguration.swift; sourceTree = "<group>"; };
+		BEA3F8FD27F5D4DC00A74867 /* AuthWebKitDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthWebKitDelegate.swift; sourceTree = "<group>"; };
 		BEC0CD4827EE5DAD000331A0 /* WelcomePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomePresenter.swift; sourceTree = "<group>"; };
 		BEC0CD4B27EE5E40000331A0 /* WelcomeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeModel.swift; sourceTree = "<group>"; };
 		BEC0CD4E27EE5F15000331A0 /* WelcomeConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeConfigurator.swift; sourceTree = "<group>"; };
@@ -351,6 +353,7 @@
 				BED4A9CA27EF5A77003F847C /* Storage.swift */,
 				BED4A9CC27EF96D2003F847C /* DesignatedError.swift */,
 				BE0926D827F0ACDD0061E87E /* Album.swift */,
+				BEA3F8FD27F5D4DC00A74867 /* AuthWebKitDelegate.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -552,6 +555,7 @@
 				BE5B087127EF4C07000DCE48 /* URLExtension.swift in Sources */,
 				BEC0CD4927EE5DAD000331A0 /* WelcomePresenter.swift in Sources */,
 				BE0926DB27F0FBBD0061E87E /* ResponseHandler.swift in Sources */,
+				BEA3F8FE27F5D4DC00A74867 /* AuthWebKitDelegate.swift in Sources */,
 				BED4A9CD27EF96D2003F847C /* DesignatedError.swift in Sources */,
 				BE0926D627F078B40061E87E /* GalleryCollectionViewCell.swift in Sources */,
 				BE0926DD27F200380061E87E /* UIBarButtonItemExtension.swift in Sources */,

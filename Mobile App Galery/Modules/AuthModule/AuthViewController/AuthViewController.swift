@@ -24,7 +24,7 @@ class AuthViewController: UIViewController, AuthViewControllerProtocol {
         super.viewDidLoad()
         configurator.configure(view: self)
         setupDelegate(webView: webView)
-        setupWebView(webView: webView)
+        updateWebViewPage(webView)
     }
 
     func tokenReceived() {
@@ -38,17 +38,13 @@ class AuthViewController: UIViewController, AuthViewControllerProtocol {
 
     func showAlertError(error: Error) {
         let alert = UIAlertController(config: .error(error))
-        alert.addAction(config: .exit) { [weak self]_ in
-            guard let self = self else {
-                return
-            }
+        alert.addAction(config: .exit) { [weak self] _ in
+            guard let self = self else { return }
             self.dismiss(animated: true)
         }
         alert.addAction(config: .reload) { [weak self] _ in
-            guard let self = self else {
-                return
-            }
-            self.presenter.setupWebView(self.webView)
+            guard let self = self else { return }
+            self.presenter.updateWebViewPage(self.webView)
         }
         present(alert, animated: true)
     }
@@ -57,7 +53,7 @@ class AuthViewController: UIViewController, AuthViewControllerProtocol {
         presenter.setupDelegate(to: webView)
     }
 
-    private func setupWebView(webView: WKWebView) {
-        presenter.setupWebView(webView)
+    private func updateWebViewPage(_ webView: WKWebView) {
+        presenter.updateWebViewPage(webView)
     }
 }

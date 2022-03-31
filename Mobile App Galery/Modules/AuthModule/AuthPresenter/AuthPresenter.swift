@@ -10,7 +10,7 @@ import WebKit
 
 protocol AuthPresenterProtocol {
     func setupDelegate(to webView: WKWebView)
-    func setupWebView(_ webView: WKWebView)
+    func updateWebViewPage(_ webView: WKWebView)
     func tokenReceived()
     func showAlertError(error: Error)
 }
@@ -28,8 +28,8 @@ class AuthPresenter: AuthPresenterProtocol {
         model.setupDelegate(to: webView)
     }
 
-    func setupWebView(_ webView: WKWebView) {
-        model.setupWebView(webView)
+    func updateWebViewPage(_ webView: WKWebView) {
+        model.updateWebViewPage(webView)
     }
 
     func tokenReceived() {

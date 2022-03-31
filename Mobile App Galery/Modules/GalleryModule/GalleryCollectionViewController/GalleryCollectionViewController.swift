@@ -33,10 +33,7 @@ class GalleryCollectionViewController: UICollectionViewController, GalleryCollec
     }
 
     override func viewSafeAreaInsetsDidChange() {
-        guard let collectionViewLayout = collectionViewLayout as? UICollectionViewFlowLayout else {
-            return
-        }
-        presenter.updateCollectionViewLayout(layout: collectionViewLayout, with: view.safeAreaLayoutGuide)
+        presenter.updateCollectionViewLayout(layout: collectionViewLayout)
     }
 
     @objc func exit() {
@@ -49,11 +46,16 @@ class GalleryCollectionViewController: UICollectionViewController, GalleryCollec
         collectionView.reloadData()
     }
 
+    func showPhotoViewController(_ photoViewController: PhotoViewControllerProtocol) {
+        navigationController?.pushViewController(photoViewController, animated: true)
+    }
+
     func showAlertError(error: Error) {
         let alert = UIAlertController(config: .error(error))
         alert.addAction(config: .ok)
-        alert.addAction(config: .reload) { [weak presenter] _ in
-            presenter?.fetchAlbumData()
+        alert.addAction(config: .reload) { [weak self] _ in
+            guard let self = self else { return }
+            self.presenter.fetchAlbumData()
         }
         present(alert, animated: true)
     }
@@ -67,8 +69,9 @@ class GalleryCollectionViewController: UICollectionViewController, GalleryCollec
     func showAlertUserNotSignedIn() {
         let alert = UIAlertController(config: .userNotSignedIn)
         alert.addAction(config: .cancell)
-        alert.addAction(config: .ok) { [weak navigationController] _ in
-            navigationController?.popViewController(animated: true)
+        alert.addAction(config: .ok) { [weak self] _ in
+            guard let self = self else { return }
+            self.navigationController?.popViewController(animated: true)
         }
         present(alert, animated: true)
     }
@@ -77,10 +80,6 @@ class GalleryCollectionViewController: UICollectionViewController, GalleryCollec
         let alert = UIAlertController(config: .designatedError(error))
         alert.addAction(config: .ok)
         present(alert, animated: true)
-    }
-
-    func showPhotoViewController(_ photoViewController: PhotoViewControllerProtocol) {
-        navigationController?.pushViewController(photoViewController, animated: true)
     }
 
     private func registerCell(for collectionView: UICollectionView) {

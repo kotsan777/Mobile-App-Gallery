@@ -47,16 +47,34 @@ enum GetAlbumError: Error {
 }
 
 enum GalleryFlowLayoutConstants {
+    
+    enum Orientation {
+        case vertical
+        case horizontal
+    }
+
     static let minimumLineSpacing: CGFloat = 2
     static let minimumInteritemSpacing: CGFloat = 2
     static let topInset: CGFloat = 0
-    static let horizontalWidthDevider: CGFloat = 3
-    static let verticalWidthDevider: CGFloat = 2
-    static var horizontalSubtracted: CGFloat {
+
+    private static let horizontalWidthDevider: CGFloat = 3
+    private static let verticalWidthDevider: CGFloat = 2
+    private static var horizontalSubtracted: CGFloat {
         (horizontalWidthDevider > 2) ? minimumLineSpacing : minimumLineSpacing / 2
     }
-    static var verticalSubtracted: CGFloat {
+    private static var verticalSubtracted: CGFloat {
         (verticalWidthDevider > 2) ? minimumInteritemSpacing : minimumInteritemSpacing / 2
+    }
+
+    static func getSize(orientation: Orientation, currentWidth: CGFloat) -> CGFloat {
+        switch orientation {
+        case .vertical:
+            let size = (currentWidth / GalleryFlowLayoutConstants.verticalWidthDevider) - GalleryFlowLayoutConstants.verticalSubtracted
+            return size
+        case .horizontal:
+            let size = (currentWidth / GalleryFlowLayoutConstants.horizontalWidthDevider) - GalleryFlowLayoutConstants.horizontalSubtracted
+            return size
+        }
     }
 }
 

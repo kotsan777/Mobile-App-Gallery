@@ -12,14 +12,14 @@ protocol GalleryPresenterProtocol: AnyObject {
     func setupCollectionViewDelegate(for collectionView: UICollectionView)
     func setupCollectionViewDataSource(for collectionView: UICollectionView)
     func setupPrefetchDataSource(for collectionView: UICollectionView)
-    func updateCollectionViewLayout(layout: UICollectionViewFlowLayout, with safeAreaLayoutGuide: UILayoutGuide)
+    func updateCollectionViewLayout(layout: UICollectionViewLayout)
     func fetchAlbumData()
     func reloadCollectionView()
+    func showPhotoViewController(_ photoViewController: PhotoViewControllerProtocol)
     func showAlertError(error: Error)
     func showAlertUserNotSignedIn()
     func showAlertDesignatedError(error: DesignatedError)
     func showAlertUnknownError()
-    func showPhotoViewController(_ photoViewController: PhotoViewControllerProtocol)
     func removeAuthRecords()
     func removeAlbumRecords()
 }
@@ -49,8 +49,8 @@ class GalleryPresenter: GalleryPresenterProtocol {
         model.setupPrefetchDataSource(for: collectionView)
     }
 
-    func updateCollectionViewLayout(layout: UICollectionViewFlowLayout, with safeAreaLayoutGuide: UILayoutGuide) {
-        model.updateCollectionViewLayout(layout: layout, with: safeAreaLayoutGuide)
+    func updateCollectionViewLayout(layout: UICollectionViewLayout) {
+        model.updateCollectionViewLayout(layout: layout)
     }
 
     func fetchAlbumData() {

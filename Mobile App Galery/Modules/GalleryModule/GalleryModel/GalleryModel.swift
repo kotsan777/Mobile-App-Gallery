@@ -9,24 +9,33 @@ import UIKit
 import WebKit
 import SDWebImage
 
-protocol GalleryModelProtocol {
+protocol GalleryModelProtocol: AnyObject {
+    var delegate: GalleryCollectionDelegateProtocol! {get set}
     func registerCell(for collectionView: UICollectionView)
     func setupCollectionViewDelegate(for collectionView: UICollectionView)
     func setupCollectionViewDataSource(for collectionView: UICollectionView)
     func setupPrefetchDataSource(for collectionView: UICollectionView)
-    func updateCollectionViewLayout(layout: UICollectionViewFlowLayout, with safeAreaLayoutGuide: UILayoutGuide)
+    func updateCollectionViewLayout(layout: UICollectionViewLayout)
     func fetchAlbumData()
     func removeAuthRecords()
     func removeAlbumRecords()
+    func showPhotoViewController()
 }
 
-class GalleryModel: NSObject, GalleryModelProtocol {
+class GalleryModel: GalleryModelProtocol {
 
     let presenter: GalleryPresenterProtocol
-    var album: Album?
+    var dataSource: GalleryCollectionDataSourceProtocol
+    var delegate: GalleryCollectionDelegateProtocol!
+    var prefetchDataSource: GalleryCollectionDataSourcePrefetchProtocol
 
-    init(presenter: GalleryPresenterProtocol) {
+
+    init(presenter: GalleryPresenterProtocol,
+         dataSource: GalleryCollectionDataSourceProtocol,
+         prefetchDataSource: GalleryCollectionDataSourcePrefetchProtocol) {
         self.presenter = presenter
+        self.dataSource = dataSource
+        self.prefetchDataSource = prefetchDataSource
     }
 
     func registerCell(for collectionView: UICollectionView) {
@@ -35,31 +44,31 @@ class GalleryModel: NSObject, GalleryModelProtocol {
     }
 
     func setupCollectionViewDelegate(for collectionView: UICollectionView) {
-        collectionView.delegate = self
+        collectionView.delegate = delegate
     }
 
     func setupCollectionViewDataSource(for collectionView: UICollectionView) {
-        collectionView.dataSource = self
+        collectionView.dataSource = dataSource
     }
 
     func setupPrefetchDataSource(for collectionView: UICollectionView) {
-        collectionView.prefetchDataSource = self
+        collectionView.prefetchDataSource = prefetchDataSource
     }
 
-    func updateCollectionViewLayout(layout: UICollectionViewFlowLayout, with safeAreaLayoutGuide: UILayoutGuide) {
-        guard let insets = safeAreaLayoutGuide.owningView?.safeAreaInsets else {
+    func updateCollectionViewLayout(layout: UICollectionViewLayout) {
+        guard let layout = layout as? UICollectionViewFlowLayout,
+              let safeAreainsets = layout.collectionView?.superview?.safeAreaInsets,
+              let safeAreaFrame = layout.collectionView?.superview?.safeAreaLayoutGuide.layoutFrame else {
             return
         }
-        let safeAreaFrame = safeAreaLayoutGuide.layoutFrame
         let side: CGFloat
         if safeAreaFrame.width < safeAreaFrame.height {
-            side = (safeAreaFrame.width / GalleryFlowLayoutConstants.verticalWidthDevider) - GalleryFlowLayoutConstants.verticalSubtracted
-
+            side = GalleryFlowLayoutConstants.getSize(orientation: .vertical, currentWidth: safeAreaFrame.width)
         } else {
-            side = (safeAreaFrame.width / GalleryFlowLayoutConstants.horizontalWidthDevider) - GalleryFlowLayoutConstants.horizontalSubtracted
+            side = GalleryFlowLayoutConstants.getSize(orientation: .horizontal, currentWidth: safeAreaFrame.width)
         }
         layout.itemSize = CGSize(width: side, height: side)
-        layout.sectionInset = insets
+        layout.sectionInset = safeAreainsets
         layout.sectionInset.top = GalleryFlowLayoutConstants.topInset
         layout.minimumLineSpacing = GalleryFlowLayoutConstants.minimumLineSpacing
         layout.minimumInteritemSpacing = GalleryFlowLayoutConstants.minimumLineSpacing
@@ -72,13 +81,20 @@ class GalleryModel: NSObject, GalleryModelProtocol {
             }
             switch result {
             case .success(let album):
-                self.album = album
+                self.dataSource.album = album
+                self.delegate.album = album
+                self.prefetchDataSource.album = album
                 UserDefaultsStorage.updateAlbumData(album: album)
                 self.presenter.reloadCollectionView()
             case .failure(let error):
                 self.handleGetAlbumError(error: error)
             }
         }
+    }
+
+    func showPhotoViewController() {
+        let photoViewController = PhotoViewController(nibName: NibNames.photoViewController, bundle: nil)
+        presenter.showPhotoViewController(photoViewController)
     }
 
     func removeAuthRecords() {
@@ -106,61 +122,5 @@ class GalleryModel: NSObject, GalleryModelProtocol {
         case .designatedError(let error):
             presenter.showAlertDesignatedError(error: error)
         }
-    }
-}
-
-extension GalleryModel: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDataSourcePrefetching {
-
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let album = album else {
-            return 0
-        }
-        return album.response.count
-    }
-
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GalleryCollectionViewCell.reuseIdentifier, for: indexPath) as? GalleryCollectionViewCell else {
-            return UICollectionViewCell()
-        }
-        guard let album = album else {
-            return UICollectionViewCell()
-        }
-        guard let imageURL = album.response.items[indexPath.row][.w]?.url,
-              let url = URL(string: imageURL) else {
-            return UICollectionViewCell()
-        }
-        cell.imageView.sd_imageIndicator = SDWebImageActivityIndicator.grayLarge
-        cell.imageView.sd_imageIndicator = SDWebImageProgressIndicator.bar
-        cell.imageView.sd_imageIndicator?.indicatorView.contentMode = .bottom
-        cell.imageView.sd_setImage(with: url, placeholderImage: UIImage())
-        return cell
-    }
-
-    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
-        for indexPath in indexPaths {
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GalleryCollectionViewCell.reuseIdentifier, for: indexPath) as? GalleryCollectionViewCell else {
-                return
-            }
-            guard let album = album,
-                  let imageURL = album.response.items[indexPath.row][.w]?.url,
-                  let url = URL(string: imageURL) else {
-                return
-            }
-            cell.imageView.sd_imageIndicator = SDWebImageActivityIndicator.gray
-            cell.imageView.sd_imageIndicator = SDWebImageProgressIndicator.default
-            cell.imageView.sd_setImage(with: url)
-        }
-    }
-
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let currentItem = album?.response.items[indexPath.row],
-              let cell = collectionView.cellForItem(at: indexPath) as? GalleryCollectionViewCell,
-              let currentImageData = cell.imageView.image?.sd_imageData() else {
-            return
-        }
-        UserDefaultsStorage.updateCurrentPhotoData(data: currentImageData)
-        UserDefaultsStorage.updateCurrentItem(item: currentItem)
-        let photoViewController = PhotoViewController(nibName: NibNames.photoViewController, bundle: nil)
-        presenter.showPhotoViewController(photoViewController)
     }
 }

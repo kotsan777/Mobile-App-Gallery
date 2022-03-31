@@ -13,9 +13,15 @@ protocol GalleryConfiguratorProtocol {
 
 class GalleryConfigurator: GalleryConfiguratorProtocol {
     func configure(view: GalleryCollectionViewController) {
+        let dataSource = GalleryCollectionDataSource()
+        let prefetchDataSource = GalleryCollectionDataSourcePrefetch()
         let presenter = GalleryPresenter(view: view)
-        let model = GalleryModel(presenter: presenter)
+        let model = GalleryModel(presenter: presenter,
+                                 dataSource: dataSource,
+                                 prefetchDataSource: prefetchDataSource)
+        let galleryDelegate = GalleryCollectionDelegate(model: model)
         presenter.model = model
         view.presenter = presenter
+        model.delegate = galleryDelegate
     }
 }

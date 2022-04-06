@@ -22,7 +22,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qn9-TY-Byi">
-                    <rect key="frame" x="24" y="806" width="366" height="56"/>
+                    <rect key="frame" x="24" y="790" width="366" height="56"/>
                     <color key="backgroundColor" red="0.070588235294117646" green="0.070588235294117646" blue="0.070588235294117646" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="56" id="z98-yj-kSW"/>
@@ -41,8 +41,8 @@
                         <action selector="authButtonTapped" destination="-1" eventType="touchUpInside" id="aDf-hW-zs7"/>
                     </connections>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AFt-vl-aii">
-                    <rect key="frame" x="24" y="263" width="366" height="115"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AFt-vl-aii">
+                    <rect key="frame" x="24" y="247" width="366" height="115"/>
                     <string key="text">Mobile Up
 Gallery</string>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="48"/>
@@ -55,10 +55,10 @@ Gallery</string>
             <constraints>
                 <constraint firstItem="AFt-vl-aii" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="24" id="0L4-gA-aQe"/>
                 <constraint firstItem="Qn9-TY-Byi" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="24" id="85s-oy-XTA"/>
-                <constraint firstItem="Qn9-TY-Byi" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="FNs-vL-10B"/>
+                <constraint firstItem="AFt-vl-aii" firstAttribute="top" relation="greaterThanOrEqual" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="50" id="8BZ-kR-z7l"/>
+                <constraint firstAttribute="bottom" secondItem="Qn9-TY-Byi" secondAttribute="bottom" constant="50" id="FNs-vL-10B"/>
+                <constraint firstItem="Qn9-TY-Byi" firstAttribute="top" secondItem="AFt-vl-aii" secondAttribute="bottom" priority="950" constant="428" id="SSz-s6-SqC"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="AFt-vl-aii" secondAttribute="trailing" constant="24" id="e62-3k-Spw"/>
-                <constraint firstItem="AFt-vl-aii" firstAttribute="top" relation="greaterThanOrEqual" secondItem="fnl-2z-Ty3" secondAttribute="top" id="fJR-RE-Dyq"/>
-                <constraint firstItem="Qn9-TY-Byi" firstAttribute="top" secondItem="AFt-vl-aii" secondAttribute="bottom" priority="250" constant="428" id="tih-up-K28"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Qn9-TY-Byi" secondAttribute="trailing" constant="24" id="yng-Qa-qg4"/>
             </constraints>
             <point key="canvasLocation" x="137.68115942028987" y="93.75"/>

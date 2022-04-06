@@ -54,5 +54,5 @@ enum NavigationControllerConstants {
 enum NavigationButtonItemsConstants {
     static let exitGalleryText: String = "Выход"
     static let exitGalleryFont: UIFont = .systemFont(ofSize: 18, weight: .medium)
-    static let shareImage: UIImage? = UIImage(systemName: "square.and.arrow.up")
+    static let shareImage: UIImage? = UIImage(named: "ShareButtonImage")
 }

@@ -5,7 +5,6 @@
 //  Created by Аслан Кутумбаев on 26.03.2022.
 //
 
-import UIKit
 import WebKit
 
 protocol AuthPresenterProtocol {

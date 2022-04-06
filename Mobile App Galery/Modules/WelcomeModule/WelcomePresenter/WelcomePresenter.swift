@@ -5,7 +5,6 @@
 //  Created by Аслан Кутумбаев on 25.03.2022.
 //
 
-import UIKit
 
 protocol WelcomePresenterProtocol {
 

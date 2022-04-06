@@ -5,8 +5,6 @@
 //  Created by Аслан Кутумбаев on 26.03.2022.
 //
 
-import UIKit
-
 // MARK: - DesignatedError
 struct DesignatedError: Codable {
     let error: VKRequestError

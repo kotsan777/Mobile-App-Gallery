@@ -5,8 +5,6 @@
 //  Created by Аслан Кутумбаев on 31.03.2022.
 //
 
-import UIKit
-
 enum GetPhotoRequestConstants {
     static let scheme = "https"
     static let host = "api.vk.com"

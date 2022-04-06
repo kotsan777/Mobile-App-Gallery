@@ -5,8 +5,6 @@
 //  Created by Аслан Кутумбаев on 26.03.2022.
 //
 
-import UIKit
-
 struct Token: Codable {
     let accessToken: String
     let expiresIn: Int

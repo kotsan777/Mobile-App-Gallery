@@ -5,8 +5,6 @@
 //  Created by Аслан Кутумбаев on 27.03.2022.
 //
 
-import UIKit
-
 protocol GalleryConfiguratorProtocol {
     func configure(view: GalleryCollectionViewController)
 }

@@ -5,8 +5,6 @@
 //  Created by Аслан Кутумбаев on 31.03.2022.
 //
 
-import UIKit
-
 enum NibNames {
     static let welcomeViewController = "WelcomeViewController"
     static let authViewController = "AuthViewController"

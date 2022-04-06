@@ -5,7 +5,7 @@
 //  Created by Аслан Кутумбаев on 27.03.2022.
 //
 
-import UIKit
+
 import WebKit
 import SDWebImage
 

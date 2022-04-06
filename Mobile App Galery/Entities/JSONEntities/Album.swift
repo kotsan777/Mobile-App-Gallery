@@ -5,8 +5,6 @@
 //  Created by Аслан Кутумбаев on 27.03.2022.
 //
 
-import UIKit
-
 // MARK: - Album
 struct Album: Codable {
     let response: Response

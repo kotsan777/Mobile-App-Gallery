@@ -11,6 +11,8 @@ import WebKit
 protocol AuthViewControllerProtocol {
     func tokenReceived()
     func showAlertError(error: Error)
+    func showAlertUnknownError()
+    func showAlertTokenError(error: TokenError)
 }
 
 class AuthViewController: UIViewController, AuthViewControllerProtocol {
@@ -46,6 +48,18 @@ class AuthViewController: UIViewController, AuthViewControllerProtocol {
             guard let self = self else { return }
             self.presenter.updateWebViewPage(self.webView)
         }
+        present(alert, animated: true)
+    }
+
+    func showAlertUnknownError() {
+        let alert = UIAlertController(config: .unknownError)
+        alert.addAction(config: .ok)
+        present(alert, animated: true)
+    }
+
+    func showAlertTokenError(error: TokenError) {
+        let alert = UIAlertController(config: .tokenError(error))
+        alert.addAction(config: .ok)
         present(alert, animated: true)
     }
 

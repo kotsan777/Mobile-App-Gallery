@@ -10,7 +10,7 @@ import WebKit
 protocol AuthModelProtocol: AnyObject {
     func setupDelegate(to webView: WKWebView)
     func updateWebViewPage(_ webView: WKWebView)
-    func tokenReceived()
+    func codeReceived()
     func showAlertError(error: Error)
 }
 
@@ -34,11 +34,32 @@ class AuthModel: AuthModelProtocol {
         webView.load(request)
     }
 
-    func tokenReceived() {
-        presenter.tokenReceived()
+    func codeReceived() {
+        NetworkService.shared.getToken { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let token):
+                UserDefaultsStorage.updateToken(token: token)
+                UserDefaultsStorage.updateIsTokenActual(with: true)
+                self.presenter.tokenReceived()
+            case .failure(let error):
+                self.handleGetTokenError(error: error)
+            }
+        }
     }
 
     func showAlertError(error: Error) {
         presenter.showAlertError(error: error)
+    }
+
+    private func handleGetTokenError(error: GetTokenError) {
+        switch error {
+        case .unknownError:
+            presenter.showAlertUnknownError()
+        case .tokenError(let error):
+            presenter.showAlertTokenError(error: error)
+        case .error(let error):
+            presenter.showAlertError(error: error)
+        }
     }
 }

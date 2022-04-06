@@ -25,6 +25,8 @@ class AlertInfoFactory {
             return saveImageSuccessInfo
         case .saveImageFailed:
             return saveImageFailedInfo
+        case .tokenError(let error):
+            return tokenErrorInfo(error)
         }
     }
 
@@ -64,4 +66,10 @@ class AlertInfoFactory {
         let message = "В ходе сохранения фотографии произошла ошибка. Попробуйте снова"
         return (title, message)
     }()
+
+    private static let tokenErrorInfo: (TokenError) -> AlertInfo = { error in
+        let title = error.error
+        let message = error.errorDescription
+        return (title, message)
+    }
 }

@@ -16,6 +16,7 @@ extension UIAlertController {
         case userNotSignedIn
         case saveImageSuccess
         case saveImageFailed
+        case tokenError(_ error: TokenError)
     }
 
     convenience init(config: Configuration) {

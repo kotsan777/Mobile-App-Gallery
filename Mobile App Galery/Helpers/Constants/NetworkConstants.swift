@@ -18,7 +18,7 @@ enum GetPhotoRequestConstants {
     static let versionValue = "5.131"
 }
 
-enum AuthRequestConstants {
+enum CodeRequestConstants {
     static let scheme = "https"
     static let host = "oauth.vk.com"
     static let path = "/authorize"
@@ -29,7 +29,24 @@ enum AuthRequestConstants {
     static let redirectUriKey = "redirect_uri"
     static let redirectUriValue = "https://oauth.vk.com/blank.html"
     static let responseTypeKey = "response_type"
-    static let responseTypeValue = "token"
+    static let responseTypeValue = "code"
+}
+
+enum TokenRequestConstants {
+    static let scheme = "https"
+    static let host = "oauth.vk.com"
+    static let path = "/access_token"
+    static let clientIdKey = "client_id"
+    static let clientIdValue = "8115695"
+    static let clientSecretKey = "client_secret"
+    static let clientSecretValue = "y9bXGZmLzAu2fqJS17o2"
+    static let redirectUriKey = "redirect_uri"
+    static let redirectUriValue = "https://oauth.vk.com/blank.html"
+    static let codeKey = "code"
+    static var codeValue: String {
+        let code = UserDefaultsStorage.getCode() ?? ""
+        return code
+    }
 }
 
 enum GetAlbumResult {
@@ -42,5 +59,16 @@ enum GetAlbumError: Error {
     case designatedError(_ error: DesignatedError)
     case error(_ error: Error)
     case userNotSignedIn
+}
+
+enum GetTokenResult {
+    case success(token: Token)
+    case failure(_ error: GetTokenError)
+}
+
+enum GetTokenError {
+    case unknownError
+    case tokenError(_ error: TokenError)
+    case error(_ error: Error)
 }
 

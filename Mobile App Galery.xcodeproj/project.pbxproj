@@ -17,6 +17,7 @@
 		BE0926DB27F0FBBD0061E87E /* ResponseHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0926DA27F0FBBD0061E87E /* ResponseHandler.swift */; };
 		BE0926DD27F200380061E87E /* UIBarButtonItemExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0926DC27F200380061E87E /* UIBarButtonItemExtension.swift */; };
 		BE0926DF27F2019F0061E87E /* NavigationControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0926DE27F2019F0061E87E /* NavigationControllerExtension.swift */; };
+		BE144C9327FD5E6E0056BBC6 /* TokenError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE144C9227FD5E6E0056BBC6 /* TokenError.swift */; };
 		BE40184827EF2F6D00F2E1DD /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE40184727EF2F6D00F2E1DD /* NetworkService.swift */; };
 		BE40184A27EF2F7F00F2E1DD /* RequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE40184927EF2F7F00F2E1DD /* RequestBuilder.swift */; };
 		BE5B086527EF4425000DCE48 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5B086327EF4425000DCE48 /* AuthViewController.swift */; };
@@ -73,6 +74,7 @@
 		BE0926DA27F0FBBD0061E87E /* ResponseHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseHandler.swift; sourceTree = "<group>"; };
 		BE0926DC27F200380061E87E /* UIBarButtonItemExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBarButtonItemExtension.swift; sourceTree = "<group>"; };
 		BE0926DE27F2019F0061E87E /* NavigationControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationControllerExtension.swift; sourceTree = "<group>"; };
+		BE144C9227FD5E6E0056BBC6 /* TokenError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenError.swift; sourceTree = "<group>"; };
 		BE40184727EF2F6D00F2E1DD /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		BE40184927EF2F7F00F2E1DD /* RequestBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestBuilder.swift; sourceTree = "<group>"; };
 		BE5B086327EF4425000DCE48 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
@@ -248,6 +250,7 @@
 				BE5B087327EF55B4000DCE48 /* Token.swift */,
 				BED4A9CC27EF96D2003F847C /* DesignatedError.swift */,
 				BE0926D827F0ACDD0061E87E /* Album.swift */,
+				BE144C9227FD5E6E0056BBC6 /* TokenError.swift */,
 			);
 			path = JSONEntities;
 			sourceTree = "<group>";
@@ -628,6 +631,7 @@
 				BE9687E027F637E200433D84 /* UIConstants.swift in Sources */,
 				BEA3F90027F5DFE800A74867 /* GalleryCollectionViewDataSource.swift in Sources */,
 				BE5B087127EF4C07000DCE48 /* URLExtension.swift in Sources */,
+				BE144C9327FD5E6E0056BBC6 /* TokenError.swift in Sources */,
 				BEC0CD4927EE5DAD000331A0 /* WelcomePresenter.swift in Sources */,
 				BE0926DB27F0FBBD0061E87E /* ResponseHandler.swift in Sources */,
 				BEA3F8FE27F5D4DC00A74867 /* AuthWebKitDelegate.swift in Sources */,

@@ -23,26 +23,19 @@ class AuthWebKitDelegate: NSObject, AuthWebKitDelegateProtocol {
         model.showAlertError(error: error)
     }
 
-    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+    func webView(_ webView: WKWebView, didReceiveServerRedirectForProvisionalNavigation navigation: WKNavigation!) {
         guard let url = webView.url, let fragment = url.fragment else {
             return
         }
-        let isFragmentContainToken = fragment.contains(URL.QueryParameterType.accessToken)
-        isFragmentContainToken ? (getToken(with: url)) : nil
+        let isFragmentContainCode = fragment.contains(URL.QueryParameterType.code)
+        isFragmentContainCode ? (getCode(with: url)) : nil
     }
 
-    private func getToken(with url: URL) {
-        guard let accessToken = url.queryValue(of: URL.QueryParameterType.accessToken),
-              let expriresIn = url.queryValue(of: URL.QueryParameterType.expiresIn),
-              let userId = url.queryValue(of: URL.QueryParameterType.userId) else {
+    private func getCode(with url: URL) {
+        guard let code = url.queryValue(of: URL.QueryParameterType.code) else {
             return
         }
-        guard let expriresIn = Int(expriresIn), let userId = Int(userId) else {
-            return
-        }
-        let token = Token(accessToken: accessToken, expiresIn: expriresIn, userID: userId)
-        UserDefaultsStorage.updateToken(token: token)
-        UserDefaultsStorage.updateIsTokenActual(with: true)
-        model.tokenReceived()
+        UserDefaultsStorage.updateCode(code: code)
+        model.codeReceived()
     }
 }

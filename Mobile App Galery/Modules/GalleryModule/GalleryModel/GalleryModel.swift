@@ -76,9 +76,7 @@ class GalleryModel: GalleryModelProtocol {
 
     func fetchAlbumData() {
         NetworkService.shared.getAlbumData { [weak self] result in
-            guard let self = self else {
-                return
-            }
+            guard let self = self else { return }
             switch result {
             case .success(let album):
                 self.dataSource.album = album
@@ -103,6 +101,7 @@ class GalleryModel: GalleryModelProtocol {
                 WKWebsiteDataStore.default().removeData(ofTypes: record.dataTypes, for: [record], completionHandler: {})
             }
         }
+        UserDefaultsStorage.deleteCode()
         UserDefaultsStorage.deleteCurrentToken()
         UserDefaultsStorage.updateIsTokenActual(with: false)
     }

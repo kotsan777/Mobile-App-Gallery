@@ -11,6 +11,7 @@ class UserDefaultsStorage {
 
     enum UserDefaultsStorageKeys {
         static let token = "token"
+        static let code = "code"
         static let isTokenActual = "isTokenActual"
         static let currentItem = "currentItem"
         static let currentPhotoData = "currentPhotoData"
@@ -35,6 +36,18 @@ class UserDefaultsStorage {
 
     static func deleteCurrentToken() {
         UserDefaults.standard.removeObject(forKey: UserDefaultsStorageKeys.token)
+    }
+
+    static func updateCode(code: String) {
+        UserDefaults.standard.set(code, forKey: UserDefaultsStorageKeys.code)
+    }
+
+    static func getCode() -> String? {
+        UserDefaults.standard.string(forKey: UserDefaultsStorageKeys.code)
+    }
+
+    static func deleteCode() {
+        UserDefaults.standard.removeObject(forKey: UserDefaultsStorageKeys.code)
     }
 
     static func updateIsTokenActual(with bool: Bool) {

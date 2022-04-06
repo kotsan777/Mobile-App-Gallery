@@ -21,4 +21,17 @@ class ResponseHandler {
             return .failure(.designatedError(error))
         }
     }
+
+    static func handleGetTokenResponse(data: Data) -> GetTokenResult {
+        do {
+            let token = try JSONDecoder().decode(Token.self, from: data)
+            return .success(token: token)
+        }
+        catch {
+            guard let error = try? JSONDecoder().decode(TokenError.self, from: data) else {
+                return .failure(.unknownError)
+            }
+            return .failure(.tokenError(error))
+        }
+    }
 }

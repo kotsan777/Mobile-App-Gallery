@@ -10,9 +10,7 @@ import UIKit
 extension URL {
 
     enum QueryParameterType {
-        static let accessToken = "access_token"
-        static let expiresIn = "expires_in"
-        static let userId = "user_id"
+        static let code = "code"
     }
 
     func queryValue(of queryParameterKey: String) -> String? {

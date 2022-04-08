@@ -5,21 +5,17 @@
 //  Created by Аслан Кутумбаев on 27.03.2022.
 //
 
-import UIKit
-
-protocol GalleryPresenterProtocol: AnyObject {
-    func registerCell(for collectionView: UICollectionView)
-    func setupCollectionViewDelegate(for collectionView: UICollectionView)
-    func setupCollectionViewDataSource(for collectionView: UICollectionView)
-    func setupPrefetchDataSource(for collectionView: UICollectionView)
-    func updateCollectionViewLayout(layout: UICollectionViewLayout)
-    func fetchAlbumData()
-    func reloadCollectionView()
-    func showPhotoViewController(_ photoViewController: PhotoViewControllerProtocol)
+protocol GalleryPresenterAlertable {
+    func showPhotoViewController()
     func showAlertError(error: Error)
     func showAlertUserNotSignedIn()
     func showAlertDesignatedError(error: DesignatedError)
     func showAlertUnknownError()
+}
+
+protocol GalleryPresenterProtocol: AnyObject, GalleryPresenterAlertable {
+    func fetchAlbumData()
+    func reloadCollectionView()
     func removeAuthRecords()
     func removeAlbumRecords()
 }
@@ -33,27 +29,8 @@ class GalleryPresenter: GalleryPresenterProtocol {
         self.view = view
     }
 
-    func registerCell(for collectionView: UICollectionView) {
-        model.registerCell(for: collectionView)
-    }
-
-    func setupCollectionViewDelegate(for collectionView: UICollectionView) {
-        model.setupCollectionViewDelegate(for: collectionView)
-    }
-
-    func setupCollectionViewDataSource(for collectionView: UICollectionView) {
-        model.setupCollectionViewDataSource(for: collectionView)
-    }
-
-    func setupPrefetchDataSource(for collectionView: UICollectionView) {
-        model.setupPrefetchDataSource(for: collectionView)
-    }
-
-    func updateCollectionViewLayout(layout: UICollectionViewLayout) {
-        model.updateCollectionViewLayout(layout: layout)
-    }
-
     func fetchAlbumData() {
+        let model = model as AlbumFetchable
         model.fetchAlbumData()
     }
 
@@ -62,30 +39,36 @@ class GalleryPresenter: GalleryPresenterProtocol {
     }
 
     func showAlertError(error: Error) {
+        let view = view as GalleryViewAlertable
         view.showAlertError(error: error)
     }
 
     func showAlertUnknownError() {
+        let view = view as GalleryViewAlertable
         view.showAlertUnknownError()
     }
 
     func showAlertUserNotSignedIn() {
+        let view = view as GalleryViewAlertable
         view.showAlertUserNotSignedIn()
     }
 
     func showAlertDesignatedError(error: DesignatedError) {
+        let view = view as GalleryViewAlertable
         view.showAlertDesignatedError(error: error)
     }
 
-    func showPhotoViewController(_ photoViewController: PhotoViewControllerProtocol) {
-        view.showPhotoViewController(photoViewController)
+    func showPhotoViewController() {
+        view.showPhotoViewController()
     }
 
     func removeAuthRecords() {
+        let model = model as AuthRemovable
         model.removeAuthRecords()
     }
 
     func removeAlbumRecords() {
+        let model = model as AlbumRemovable
         model.removeAlbumRecords()
     }
 }

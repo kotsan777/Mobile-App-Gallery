@@ -30,7 +30,7 @@ class WelcomeViewController: UIViewController, WelcomeViewControllerProtocol {
     }
 
     func authSucceeded() {
-        let vc = GalleryCollectionViewController(nibName: NibNames.galleryCollectionViewController, bundle: nil)
+        let vc = GalleryCollectionViewController()
         navigationController?.pushViewController(vc, animated: true)
     }
 }

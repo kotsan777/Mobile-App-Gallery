@@ -6,38 +6,66 @@
 //
 
 import UIKit
+import WebKit
 
-protocol GalleryCollectionViewControllerProtocol: UIViewController {
-    func reloadCollectionView()
+protocol GalleryViewAlertable {
     func showAlertError(error: Error)
     func showAlertUnknownError()
-    func showPhotoViewController(_ photoViewController: PhotoViewControllerProtocol)
     func showAlertUserNotSignedIn()
     func showAlertDesignatedError(error: DesignatedError)
 }
 
+protocol GalleryCollectionViewControllerProtocol: UICollectionViewController, GalleryViewAlertable {
+    func reloadCollectionView()
+    func showPhotoViewController()
+}
+
 class GalleryCollectionViewController: UICollectionViewController, GalleryCollectionViewControllerProtocol {
 
-    let configurator = GalleryConfigurator()
+    let configurator: GalleryConfiguratorProtocol
+    let alertFactory: AlertFactoryProtocol
     var presenter: GalleryPresenterProtocol!
-    
+
+    init(configurator: GalleryConfiguratorProtocol, alertFactory: AlertFactoryProtocol) {
+        self.configurator = configurator
+        self.alertFactory = alertFactory
+        super.init(nibName: NibNames.galleryCollectionViewController, bundle: nil)
+        navigationItem.setHidesBackButton(true, animated: false)
+        title = NavigationControllerConstants.galleryViewControllerTitle
+        navigationItem.rightBarButtonItem = UIBarButtonItem(config: .exitFromGallery)
+        navigationItem.backBarButtonItem = UIBarButtonItem(config: .defaultBackButtonItem)
+        navigationItem.rightBarButtonItem?.action = #selector(exit)
+        navigationItem.rightBarButtonItem?.target = self
+    }
+
+    convenience init() {
+        let configurator = GalleryConfigurator()
+        let alertFactory = AlertFactory()
+        self.init(configurator: configurator, alertFactory: alertFactory)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         configurator.configure(view: self)
-        setupViewController()
         registerCell(for: collectionView)
-        setupCollectionViewDelegate(for: collectionView)
-        setupCollectionViewDataSource(for: collectionView)
-        setupPrefetchDataSource(for: collectionView)
-        fetchAlbumData()
+        presenter.fetchAlbumData()
     }
 
     override func viewSafeAreaInsetsDidChange() {
-        presenter.updateCollectionViewLayout(layout: collectionViewLayout)
+        updateCollectionViewLayout(layout: collectionViewLayout)
     }
 
     @objc func exit() {
         navigationController?.popViewController(animated: true)
+        WKWebsiteDataStore.default().fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) { records in
+            records.forEach { record in
+                WKWebsiteDataStore.default().removeData(ofTypes: record.dataTypes, for: [record], completionHandler: {})
+            }
+        }
         presenter.removeAuthRecords()
         presenter.removeAlbumRecords()
     }
@@ -46,12 +74,13 @@ class GalleryCollectionViewController: UICollectionViewController, GalleryCollec
         collectionView.reloadData()
     }
 
-    func showPhotoViewController(_ photoViewController: PhotoViewControllerProtocol) {
+    func showPhotoViewController() {
+        let photoViewController = PhotoViewController(nibName: NibNames.photoViewController, bundle: nil)
         navigationController?.pushViewController(photoViewController, animated: true)
     }
 
     func showAlertError(error: Error) {
-        let alert = UIAlertController(config: .error(error))
+        let alert = alertFactory.produce(with: .error(error))
         alert.addAction(config: .ok)
         alert.addAction(config: .reload) { [weak self] _ in
             guard let self = self else { return }
@@ -61,13 +90,13 @@ class GalleryCollectionViewController: UICollectionViewController, GalleryCollec
     }
 
     func showAlertUnknownError() {
-        let alert = UIAlertController(config: .unknownError)
+        let alert = alertFactory.produce(with: .unknownError)
         alert.addAction(config: .ok)
         present(alert, animated: true)
     }
 
     func showAlertUserNotSignedIn() {
-        let alert = UIAlertController(config: .userNotSignedIn)
+        let alert = alertFactory.produce(with: .userNotSignedIn)
         alert.addAction(config: .cancell)
         alert.addAction(config: .ok) { [weak self] _ in
             guard let self = self else { return }
@@ -77,37 +106,32 @@ class GalleryCollectionViewController: UICollectionViewController, GalleryCollec
     }
 
     func showAlertDesignatedError(error: DesignatedError) {
-        let alert = UIAlertController(config: .designatedError(error))
+        let alert = alertFactory.produce(with: .designatedError(error))
         alert.addAction(config: .ok)
         present(alert, animated: true)
     }
 
     private func registerCell(for collectionView: UICollectionView) {
-        presenter.registerCell(for: collectionView)
+        let nib = UINib(nibName: NibNames.galleryCollectionViewCell, bundle: nil)
+        collectionView.register(nib, forCellWithReuseIdentifier: GalleryCollectionViewCell.reuseIdentifier)
     }
 
-    private func setupCollectionViewDelegate(for collectionView: UICollectionView) {
-        presenter.setupCollectionViewDelegate(for: collectionView)
-    }
-
-    private func setupCollectionViewDataSource(for collectionView: UICollectionView) {
-        presenter.setupCollectionViewDataSource(for: collectionView)
-    }
-
-    private func setupPrefetchDataSource(for collectionView: UICollectionView) {
-        presenter.setupPrefetchDataSource(for: collectionView)
-    }
-
-    private func fetchAlbumData() {
-        presenter.fetchAlbumData()
-    }
-
-    private func setupViewController() {
-        navigationItem.setHidesBackButton(true, animated: false)
-        title = NavigationControllerConstants.galleryViewControllerTitle
-        navigationItem.rightBarButtonItem = UIBarButtonItem(config: .exitFromGallery)
-        navigationItem.backBarButtonItem = UIBarButtonItem(config: .defaultBackButtonItem)
-        navigationItem.rightBarButtonItem?.action = #selector(exit)
-        navigationItem.rightBarButtonItem?.target = self
+    private func updateCollectionViewLayout(layout: UICollectionViewLayout) {
+        guard let layout = layout as? UICollectionViewFlowLayout,
+              let safeAreainsets = layout.collectionView?.superview?.safeAreaInsets,
+              let safeAreaFrame = layout.collectionView?.superview?.safeAreaLayoutGuide.layoutFrame else {
+            return
+        }
+        let side: CGFloat
+        if safeAreaFrame.width < safeAreaFrame.height {
+            side = GalleryFlowLayoutConstants.getSize(orientation: .vertical, currentWidth: safeAreaFrame.width)
+        } else {
+            side = GalleryFlowLayoutConstants.getSize(orientation: .horizontal, currentWidth: safeAreaFrame.width)
+        }
+        layout.itemSize = CGSize(width: side, height: side)
+        layout.sectionInset = safeAreainsets
+        layout.sectionInset.top = GalleryFlowLayoutConstants.topInset
+        layout.minimumLineSpacing = GalleryFlowLayoutConstants.minimumLineSpacing
+        layout.minimumInteritemSpacing = GalleryFlowLayoutConstants.minimumLineSpacing
     }
 }

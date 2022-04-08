@@ -17,7 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: windowScene)
         let navigationController: UINavigationController = UINavigationController(config: .defaultConfig)
         let welcomeViewController = WelcomeViewController(nibName: NibNames.welcomeViewController, bundle: nil)
-        let galleryViewController = GalleryCollectionViewController(nibName: NibNames.galleryCollectionViewController, bundle: nil)
+        let galleryViewController = GalleryCollectionViewController()
         if UserDefaultsStorage.isTokenActual {
             navigationController.setViewControllers([welcomeViewController, galleryViewController], animated: true)
         } else {

@@ -9,19 +9,16 @@ import UIKit
 
 protocol GalleryCollectionDelegateProtocol: UICollectionViewDelegate {
     var album: Album? {get set}
-    var model: GalleryModelProtocol {get set}
+    var model: GalleryModelProtocol? {get set}
 }
 
 class GalleryCollectionDelegate: NSObject, GalleryCollectionDelegateProtocol {
     var album: Album?
-    var model: GalleryModelProtocol
-    
-    init(model: GalleryModelProtocol) {
-        self.model = model
-    }
+    var model: GalleryModelProtocol?
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let currentItem = album?.response.items[indexPath.row],
+        guard let model = model,
+              let currentItem = album?.response.items[indexPath.row],
               let cell = collectionView.cellForItem(at: indexPath) as? GalleryCollectionViewCell,
               let currentImageData = cell.imageView.image?.sd_imageData() else {
             return

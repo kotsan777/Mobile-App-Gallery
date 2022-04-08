@@ -19,6 +19,7 @@
 		BE0926DF27F2019F0061E87E /* NavigationControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0926DE27F2019F0061E87E /* NavigationControllerExtension.swift */; };
 		BE144C9327FD5E6E0056BBC6 /* TokenError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE144C9227FD5E6E0056BBC6 /* TokenError.swift */; };
 		BE144C96280050210056BBC6 /* AlertFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE144C95280050210056BBC6 /* AlertFactory.swift */; };
+		BE144C982800861C0056BBC6 /* ShareViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE144C972800861C0056BBC6 /* ShareViewControllerFactory.swift */; };
 		BE40184827EF2F6D00F2E1DD /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE40184727EF2F6D00F2E1DD /* NetworkService.swift */; };
 		BE40184A27EF2F7F00F2E1DD /* RequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE40184927EF2F7F00F2E1DD /* RequestBuilder.swift */; };
 		BE5B086527EF4425000DCE48 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5B086327EF4425000DCE48 /* AuthViewController.swift */; };
@@ -77,6 +78,7 @@
 		BE0926DE27F2019F0061E87E /* NavigationControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationControllerExtension.swift; sourceTree = "<group>"; };
 		BE144C9227FD5E6E0056BBC6 /* TokenError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenError.swift; sourceTree = "<group>"; };
 		BE144C95280050210056BBC6 /* AlertFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertFactory.swift; sourceTree = "<group>"; };
+		BE144C972800861C0056BBC6 /* ShareViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewControllerFactory.swift; sourceTree = "<group>"; };
 		BE40184727EF2F6D00F2E1DD /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		BE40184927EF2F7F00F2E1DD /* RequestBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestBuilder.swift; sourceTree = "<group>"; };
 		BE5B086327EF4425000DCE48 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 			children = (
 				BE144C95280050210056BBC6 /* AlertFactory.swift */,
 				BE9687E327F638A100433D84 /* AlertInfoFactory.swift */,
+				BE144C972800861C0056BBC6 /* ShareViewControllerFactory.swift */,
 			);
 			path = Factories;
 			sourceTree = "<group>";
@@ -648,6 +651,7 @@
 				BEA3F8FE27F5D4DC00A74867 /* AuthWebKitDelegate.swift in Sources */,
 				BED4A9CD27EF96D2003F847C /* DesignatedError.swift in Sources */,
 				BE0926D627F078B40061E87E /* GalleryCollectionViewCell.swift in Sources */,
+				BE144C982800861C0056BBC6 /* ShareViewControllerFactory.swift in Sources */,
 				BEA3F90827F6161700A74867 /* PhotoCollectionDataSource.swift in Sources */,
 				BE0926DD27F200380061E87E /* UIBarButtonItemExtension.swift in Sources */,
 				BEDDDEDC27F259C7008ECEBA /* PhotoPresenter.swift in Sources */,

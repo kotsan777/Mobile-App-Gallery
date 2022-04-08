@@ -75,7 +75,7 @@ class GalleryCollectionViewController: UICollectionViewController, GalleryCollec
     }
 
     func showPhotoViewController() {
-        let photoViewController = PhotoViewController(nibName: NibNames.photoViewController, bundle: nil)
+        let photoViewController = PhotoViewController()
         navigationController?.pushViewController(photoViewController, animated: true)
     }
 

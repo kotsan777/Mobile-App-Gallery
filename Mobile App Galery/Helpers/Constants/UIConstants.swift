@@ -44,6 +44,12 @@ enum PhotoFlowLayoutConstants {
     static var sideSize: CGFloat = 56
 }
 
+enum PhotoViewControllerConstants {
+    static let animateDuration: CGFloat = 0.5
+    static let gestureScale: CGFloat = 1
+    static let maxOpacity: Float = 1
+    static let minOpacity: Float = 0
+}
 
 enum NavigationControllerConstants {
     static let titleFont: UIFont = .systemFont(ofSize: 18, weight: .semibold)

@@ -16,6 +16,7 @@ class UserDefaultsStorage {
         static let currentItem = "currentItem"
         static let currentPhotoData = "currentPhotoData"
         static let albumData = "albumData"
+        static let currentDate = "currentDate"
     }
 
     static func updateToken(token: Token) {
@@ -79,6 +80,21 @@ class UserDefaultsStorage {
 
     static func deleteCurrentItem() {
         UserDefaults.standard.removeObject(forKey: UserDefaultsStorageKeys.currentItem)
+    }
+
+    static func updateCurrentDate(date: String) {
+        UserDefaults.standard.set(date, forKey: UserDefaultsStorageKeys.currentDate)
+    }
+
+    static func getCurrentDate() -> String? {
+        guard let date = UserDefaults.standard.string(forKey: UserDefaultsStorageKeys.currentDate) else {
+            return nil
+        }
+        return date
+    }
+
+    static func deleteCurrentDate() {
+        UserDefaults.standard.removeObject(forKey: UserDefaultsStorageKeys.currentDate)
     }
 
     static func updateCurrentPhotoData(data: Data) {

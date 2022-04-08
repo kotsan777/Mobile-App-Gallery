@@ -13,10 +13,13 @@ class PhotoConfigurator: PhotoConfiguratorProtocol {
     func configure(view: PhotoViewControllerProtocol) {
         let presenter = PhotoPresenter(view: view)
         let dataSource = PhotoCollectionDataSource()
-        let model = PhotoModel(presenter: presenter, dataSource: dataSource)
-        let photoDelegate = PhotoCollectionDelegate(model: model)
+        let delegate = PhotoCollectionDelegate()
+        let model = PhotoModel(presenter: presenter, dataSource: dataSource, delegate: delegate)
         view.presenter = presenter
         presenter.model = model
-        model.delegate = photoDelegate
+        delegate.model = model
+
+        view.carouselCollectionView.dataSource = dataSource
+        view.carouselCollectionView.delegate = delegate
     }
 }

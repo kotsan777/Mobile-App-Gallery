@@ -11,7 +11,7 @@ class AlertInfoFactory {
 
     typealias AlertInfo = (String, String)
 
-    static func getAlertInfo(with config: UIAlertController.Configuration) -> AlertInfo {
+    static func produceAlertInfo(with config: UIAlertController.Configuration) -> AlertInfo {
         switch config {
         case .unknownError:
             return unknownErrorInfo

@@ -20,7 +20,7 @@ class WelcomeViewController: UIViewController, WelcomeViewControllerProtocol {
     @IBOutlet weak var authButton: UIButton!
 
     @IBAction func authButtonTapped() {
-        let vc = AuthViewController(nibName: NibNames.authViewController, bundle: nil)
+        let vc = AuthViewController()
         present(vc, animated: true)
     }
 

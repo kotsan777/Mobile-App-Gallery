@@ -34,7 +34,7 @@ extension UIAlertController {
     }
 
     private func handleConfig(config: Configuration) {
-        let alertInfo = AlertInfoFactory.getAlertInfo(with: config)
+        let alertInfo = AlertInfoFactory.produceAlertInfo(with: config)
         title = alertInfo.0
         message = alertInfo.1
     }

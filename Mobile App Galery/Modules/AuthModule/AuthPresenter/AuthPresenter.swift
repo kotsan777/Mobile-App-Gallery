@@ -5,11 +5,8 @@
 //  Created by Аслан Кутумбаев on 26.03.2022.
 //
 
-import WebKit
-
-protocol AuthPresenterProtocol {
-    func setupDelegate(to webView: WKWebView)
-    func updateWebViewPage(_ webView: WKWebView)
+protocol AuthPresenterProtocol: AnyObject {
+    var model: AuthModelProtocol! {get set}
     func tokenReceived()
     func showAlertError(error: Error)
     func showAlertUnknownError()
@@ -23,14 +20,6 @@ class AuthPresenter: AuthPresenterProtocol {
 
     init(view: AuthViewControllerProtocol) {
         self.view = view
-    }
-
-    func setupDelegate(to webView: WKWebView) {
-        model.setupDelegate(to: webView)
-    }
-
-    func updateWebViewPage(_ webView: WKWebView) {
-        model.updateWebViewPage(webView)
     }
 
     func tokenReceived() {
